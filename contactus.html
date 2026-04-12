@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | ElectroHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-deep: #020617; /* Ultra dark slate */
+      --glass-bg: rgba(15, 23, 42, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #3b82f6;
+    }
+
+    body { 
+      font-family: 'Inter', -apple-system, sans-serif; 
+      background-color: var(--bg-deep);
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    /* --- Universal Glass --- */
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, #fff 0%, #64748b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* =========================================
+       PURE CSS FLOATING FORM LABELS (No JS)
+       ========================================= */
+    .input-group {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 1.5rem 1.25rem 0.5rem 1.25rem;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Target the placeholder to keep the label logic working */
+    .form-input::placeholder { color: transparent; }
+
+    /* Focus & Valid states */
+    .form-input:focus,
+    .form-input:not(:placeholder-shown) {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.15) inset;
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    /* The Floating Label */
+    .floating-label {
+      position: absolute;
+      left: 1.25rem;
+      top: 1rem;
+      color: #64748b;
+      font-weight: 500;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Float the label up when focused or typed in */
+    .form-input:focus ~ .floating-label,
+    .form-input:not(:placeholder-shown) ~ .floating-label {
+      top: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Custom Textarea adjustment */
+    textarea.form-input { min-height: 150px; resize: none; padding-top: 1.75rem; }
+
+    /* =========================================
+       INTERACTIVE CONTACT CARDS
+       ========================================= */
+    .contact-card {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 40px rgba(59,130,246,0.1);
+    }
+    
+    .contact-card:hover::before { opacity: 1; }
+    
+    .contact-icon { transition: transform 0.5s ease; }
+    .contact-card:hover .contact-icon { transform: scale(1.1) translateY(-2px); color: white; }
+
+    /* =========================================
+       SCROLL ANIMATIONS
+       ========================================= */
+    @supports (animation-timeline: view()) {
+      .reveal-blur {
+        animation: blurReveal linear both;
+        animation-timeline: view();
+        animation-range: entry 5% cover 25%;
+      }
+      @keyframes blurReveal {
+        0% { opacity: 0; filter: blur(20px); transform: translateY(40px); }
+        100% { opacity: 1; filter: blur(0px); transform: translateY(0); }
+      }
+    }
+
+    .fade-up { animation: fadeUpAnim 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+    @keyframes fadeUpAnim { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+
+  </style>
+</head>
+<body class="selection:bg-blue-500 selection:text-white">
+
+  <div class="fixed top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+  <header class="border-b border-white/5 bg-[#020617]/70 backdrop-blur-2xl sticky top-0 z-50">
+    <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between relative z-10">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-white text-black flex items-center justify-center rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+          <span class="font-black text-lg">E</span>
+        </div>
+        <span class="text-xl font-extrabold tracking-tight text-white">ElectroHub.</span>
+      </a>
+      
+      <nav class="hidden md:flex gap-10 items-center font-bold text-sm text-slate-400">
+        <a href="shop.html" class="hover:text-white transition-colors">Shop All</a>
+        <a href="mac.html" class="hover:text-white transition-colors">Mac</a>
+        <a href="mobiles.html" class="hover:text-white transition-colors">Mobiles</a>
+        <a href="climate.html" class="hover:text-white transition-colors">Home</a>
+      </nav>
+
+      <div class="flex gap-4 items-center">
+        <button class="text-white hover:text-gray-300 transition-colors"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 w-full pt-32 pb-24 px-6 max-w-[1400px] mx-auto text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold tracking-widest uppercase mb-8 fade-up">
+      <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> ElectroHub Concierge
+    </div>
+    <h1 class="text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.9] text-gradient fade-up" style="animation-delay: 0.1s;">
+      WE ARE HERE.
+    </h1>
+    <p class="mt-6 text-xl text-slate-400 max-w-2xl mx-auto font-medium fade-up" style="animation-delay: 0.2s;">
+      World-class support for world-class hardware. Whether you're upgrading an enterprise or troubleshooting a device, our specialists are ready.
+    </p>
+  </main>
+
+  <section class="relative z-10 w-full pb-24 px-6 max-w-[1200px] mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-up" style="animation-delay: 0.3s;">
+      
+      <article class="glass-panel rounded-3xl p-8 contact-card flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mb-6 border border-blue-500/20">
+          <svg class="w-8 h-8 text-blue-400 contact-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-2">Tech Support</h3>
+        <p class="text-sm text-slate-400 mb-6">Device troubleshooting, warranty claims, and software assistance.</p>
+        <a href="#" class="mt-auto text-blue-400 font-bold hover:underline hover:text-blue-300">Get Support &rarr;</a>
+      </article>
+
+      <article class="glass-panel rounded-3xl p-8 contact-card flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-full bg-purple-500/10 flex items-center justify-center mb-6 border border-purple-500/20">
+          <svg class="w-8 h-8 text-purple-400 contact-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-2">Sales & Orders</h3>
+        <p class="text-sm text-slate-400 mb-6">Track shipments, process returns, or get buying advice.</p>
+        <a href="#" class="mt-auto text-purple-400 font-bold hover:underline hover:text-purple-300">Track Order &rarr;</a>
+      </article>
+
+      <article class="glass-panel rounded-3xl p-8 contact-card flex flex-col items-center text-center">
+        <div class="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-6 border border-cyan-500/20">
+          <svg class="w-8 h-8 text-cyan-400 contact-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-2">Enterprise</h3>
+        <p class="text-sm text-slate-400 mb-6">Bulk ordering, corporate infrastructure, and B2B partnerships.</p>
+        <a href="#" class="mt-auto text-cyan-400 font-bold hover:underline hover:text-cyan-300">Contact Sales &rarr;</a>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="relative z-10 w-full pb-32 px-6 max-w-[1200px] mx-auto reveal-blur">
+    
+    <div class="glass-panel rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row gap-16 border-t border-white/20 shadow-2xl relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+      <div class="md:w-5/12 flex flex-col relative z-10">
+        <h2 class="text-4xl font-black text-white mb-4">Send a transmission.</h2>
+        <p class="text-slate-400 mb-12 text-lg">Send us a direct message. Our global team aims to respond to all inquiries within 4 hours.</p>
+        
+        <div class="space-y-8 mt-auto">
+          <div>
+            <p class="text-sm font-bold tracking-widest uppercase text-slate-500 mb-1">Global Headquarters</p>
+            <p class="text-white font-medium text-lg">One ElectroHub Way<br>Silicon Valley, CA 95014</p>
+          </div>
+          <div>
+            <p class="text-sm font-bold tracking-widest uppercase text-slate-500 mb-1">Call Us</p>
+            <p class="text-white font-medium text-lg">1-800-ELECTRO</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="md:w-7/12 relative z-10">
+        <form action="#" method="POST" class="w-full">
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+            <div class="input-group">
+              <input type="text" id="fname" class="form-input" placeholder=" " required>
+              <label for="fname" class="floating-label">First Name</label>
+            </div>
+            
+            <div class="input-group">
+              <input type="text" id="lname" class="form-input" placeholder=" " required>
+              <label for="lname" class="floating-label">Last Name</label>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <input type="email" id="email" class="form-input" placeholder=" " required>
+            <label for="email" class="floating-label">Email Address</label>
+          </div>
+
+          <div class="input-group">
+            <select id="subject" class="form-input appearance-none cursor-pointer" required>
+              <option value="" disabled selected hidden></option>
+              <option value="support" class="text-black">Technical Support</option>
+              <option value="sales" class="text-black">Sales Inquiry</option>
+              <option value="press" class="text-black">Press & Media</option>
+              <option value="other" class="text-black">Other</option>
+            </select>
+            <div class="absolute right-5 top-5 pointer-events-none text-slate-400">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <label for="subject" class="floating-label">Subject</label>
+          </div>
+
+          <div class="input-group">
+            <textarea id="message" class="form-input" placeholder=" " required></textarea>
+            <label for="message" class="floating-label">Your Message</label>
+          </div>
+
+          <button type="submit" class="w-full bg-white text-black py-4 rounded-xl font-bold text-lg hover:bg-gray-200 transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:-translate-y-1">
+            Initialize Sequence
+          </button>
+          
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="w-full border-t border-white/5 bg-[#020617] pt-12 pb-8 relative z-10">
+    <div class="max-w-[1400px] mx-auto px-6 text-center text-slate-600 text-sm font-medium">
+      <p>&copy; 2026 ElectroHub Technologies. All systems operational.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

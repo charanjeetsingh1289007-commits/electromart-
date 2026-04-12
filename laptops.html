@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workstations | ElectroHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-deep: #020617; /* Ultra dark slate */
+      --surface-dark: #0f172a;
+      --border-glow: rgba(255, 255, 255, 0.08);
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+    }
+
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background-color: var(--bg-deep);
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    /* --- Universal Premium Utilities --- */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-glow);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, #fff 0%, #64748b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-purple {
+      background: linear-gradient(to right, #a855f7, #3b82f6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* --- The Infinite Hardware Marquee --- */
+    .marquee-container {
+      display: flex;
+      width: 200%;
+      animation: marqueeX 30s linear infinite;
+    }
+    @keyframes marqueeX {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* =========================================
+       SCROLL-DRIVEN MAGIC (Cutting-edge CSS)
+       ========================================= */
+    @supports (animation-timeline: view()) {
+      
+      /* 1. 3D Laptop Reveal: Tilts up and scales as you scroll down */
+      .scroll-3d-reveal {
+        animation: tiltReveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 50%;
+        transform-origin: bottom center;
+      }
+      @keyframes tiltReveal {
+        0% { transform: perspective(1500px) rotateX(45deg) translateY(100px) scale(0.8); opacity: 0.2; filter: blur(10px); }
+        100% { transform: perspective(1500px) rotateX(0deg) translateY(0) scale(1); opacity: 1; filter: blur(0px); }
+      }
+
+      /* 2. Neural Core Zoom: Pulls the background image toward the user */
+      .scroll-zoom-in {
+        animation: deepZoom linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes deepZoom {
+        0% { transform: scale(1); opacity: 0.3; }
+        50% { opacity: 0.8; }
+        100% { transform: scale(1.5); opacity: 0.2; }
+      }
+
+      /* 3. Staggered Feature Cards */
+      .scroll-card-up {
+        animation: slideCardUp linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 30%;
+      }
+      @keyframes slideCardUp {
+        0% { opacity: 0; transform: translateY(80px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    /* Initial Load Hero Animation */
+    .hero-fade-in { animation: heroFade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+    @keyframes heroFade {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Subtle background mesh */
+    .bg-mesh {
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-purple-500 selection:text-white bg-mesh">
+
+  <header class="border-b border-white/5 bg-[#020617]/70 backdrop-blur-2xl sticky top-0 z-50 transition-all duration-300">
+    <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-white text-black flex items-center justify-center rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform">
+          <span class="font-black text-lg">E</span>
+        </div>
+        <span class="text-xl font-extrabold tracking-tight text-white">ElectroHub.</span>
+      </a>
+      
+      <nav class="hidden md:flex gap-10 items-center font-bold text-sm text-slate-400">
+        <a href="shop.html" class="text-white relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-[2px] after:bg-white">Workstations</a>
+        <a href="mobiles.html" class="hover:text-white transition-colors">Mobiles</a>
+        <a href="climate.html" class="hover:text-white transition-colors">Home & Climate</a>
+      </nav>
+
+      <div class="flex gap-6 items-center">
+        <a href="#" class="text-slate-400 hover:text-white transition-colors"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></a>
+        <a href="#" class="text-slate-400 hover:text-white transition-colors"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="w-full bg-blue-600 text-white overflow-hidden py-2 border-b border-blue-400/30">
+    <div class="marquee-container text-xs font-black tracking-[0.2em] uppercase">
+      <div class="flex-shrink-0 flex items-center justify-around w-1/2">
+        <span>M4 Quantum Architecture</span> <span>•</span>
+        <span>Liquid Retina XDR</span> <span>•</span>
+        <span>128GB Unified Memory</span> <span>•</span>
+        <span>Ray Tracing Hardware</span> <span>•</span>
+      </div>
+      <div class="flex-shrink-0 flex items-center justify-around w-1/2">
+        <span>M4 Quantum Architecture</span> <span>•</span>
+        <span>Liquid Retina XDR</span> <span>•</span>
+        <span>128GB Unified Memory</span> <span>•</span>
+        <span>Ray Tracing Hardware</span> <span>•</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="relative z-10 w-full pt-20 pb-32 px-6 max-w-[1400px] mx-auto flex flex-col items-center text-center">
+    <h1 class="text-6xl md:text-[8rem] font-black tracking-tighter leading-[0.9] text-gradient hero-fade-in" style="animation-delay: 0.1s;">
+      MIND <br> BLOWING.
+    </h1>
+    <p class="mt-8 text-xl md:text-2xl text-slate-400 max-w-2xl font-light hero-fade-in" style="animation-delay: 0.3s;">
+      The all-new ElectroBook Pro. Desktop-class rendering speeds packed into a 14mm aerospace-grade chassis.
+    </p>
+
+    <div class="mt-16 w-full max-w-5xl relative scroll-3d-reveal">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[50%] bg-blue-500/30 blur-[100px] rounded-[100%] z-0"></div>
+      
+      <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=100&w=2000" class="w-full relative z-10 drop-shadow-[0_40px_100px_rgba(0,0,0,0.8)]" alt="ElectroBook Pro">
+      
+      <div class="absolute bottom-[-20px] right-[10%] z-20 glass-panel px-6 py-3 rounded-full flex items-center gap-3">
+        <span class="w-3 h-3 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(74,222,128,0.8)]"></span>
+        <span class="text-sm font-bold tracking-widest uppercase">System Online</span>
+      </div>
+    </div>
+  </main>
+
+  <section class="w-full relative py-32 bg-black overflow-hidden border-y border-white/10">
+    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=2000" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen scroll-zoom-in" alt="Circuit Core">
+    
+    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent z-10"></div>
+
+    <div class="max-w-[1400px] mx-auto px-6 relative z-20 flex flex-col md:flex-row items-center">
+      <div class="md:w-1/2 scroll-card-up">
+        <h2 class="text-sm font-black text-purple-500 tracking-[0.3em] uppercase mb-4">Architecture</h2>
+        <h3 class="text-5xl md:text-7xl font-black text-white tracking-tight mb-8">The M4 <br> <span class="text-gradient-purple">Quantum.</span></h3>
+        <p class="text-xl text-slate-300 leading-relaxed max-w-lg mb-10">
+          Built on a 3-nanometer process. Featuring an 18-core CPU and a 40-core GPU. It handles dynamic ray tracing, complex 3D environments, and massive AI models without breaking a sweat.
+        </p>
+        
+        <div class="grid grid-cols-2 gap-8">
+          <div>
+            <p class="text-5xl font-black text-white mb-2">38<span class="text-2xl text-purple-500">Trillion</span></p>
+            <p class="text-sm text-slate-400 font-bold uppercase tracking-widest">Operations / Sec</p>
+          </div>
+          <div>
+            <p class="text-5xl font-black text-white mb-2">128<span class="text-2xl text-blue-500">GB</span></p>
+            <p class="text-sm text-slate-400 font-bold uppercase tracking-widest">Unified Memory</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-full py-32 relative z-10">
+    <div class="max-w-[1400px] mx-auto px-6">
+      
+      <div class="text-center mb-24 scroll-card-up">
+        <h2 class="text-5xl md:text-6xl font-black text-white mb-4">Choose your weapon.</h2>
+        <p class="text-xl text-slate-400">Configure your ultimate workspace.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <article class="glass-panel rounded-[2rem] p-8 group hover:border-white/30 transition-all duration-500 flex flex-col scroll-card-up relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          
+          <h3 class="text-3xl font-bold text-white mb-1">ElectroAir 13"</h3>
+          <p class="text-sm text-slate-400 mb-8">Ultra-light. Ultra-capable.</p>
+          
+          <div class="h-48 flex justify-center items-center mb-8 relative z-10">
+            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=600" class="h-[120%] object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-700 drop-shadow-2xl" alt="Laptop Air">
+          </div>
+          
+          <ul class="text-slate-300 text-sm space-y-4 mb-8 font-medium flex-grow border-t border-white/5 pt-6">
+            <li class="flex gap-3 items-center"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> M3 Chip with 8-core CPU</li>
+            <li class="flex gap-3 items-center"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> Up to 24GB Memory</li>
+            <li class="flex gap-3 items-center"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> Fanless design</li>
+          </ul>
+          
+          <div class="flex items-end justify-between mt-auto">
+            <div>
+              <p class="text-xs text-slate-500 font-bold uppercase mb-1">From</p>
+              <p class="text-3xl font-black text-white">₹1,14,900</p>
+            </div>
+            <button class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-slate-200 transition-colors shadow-lg">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="glass-panel rounded-[2rem] p-8 group hover:border-blue-500/50 hover:shadow-[0_0_40px_rgba(59,130,246,0.15)] transition-all duration-500 flex flex-col scroll-card-up relative overflow-hidden transform md:-translate-y-4">
+          <span class="absolute top-6 right-6 bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest z-20 shadow-[0_0_10px_rgba(59,130,246,0.6)]">Pro Choice</span>
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          
+          <h3 class="text-3xl font-bold text-white mb-1">ElectroPro 16"</h3>
+          <p class="text-sm text-slate-400 mb-8">The ultimate creative powerhouse.</p>
+          
+          <div class="h-48 flex justify-center items-center mb-8 relative z-10">
+            <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&q=80&w=600" class="h-[130%] object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-700 drop-shadow-2xl mix-blend-lighten" alt="Laptop Pro">
+          </div>
+          
+          <ul class="text-slate-300 text-sm space-y-4 mb-8 font-medium flex-grow border-t border-white/5 pt-6 relative z-10">
+            <li class="flex gap-3 items-center"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span> M4 Max Quantum Chip</li>
+            <li class="flex gap-3 items-center"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span> Up to 128GB Unified Memory</li>
+            <li class="flex gap-3 items-center"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span> Liquid Retina XDR Display</li>
+          </ul>
+          
+          <div class="flex items-end justify-between mt-auto relative z-10">
+            <div>
+              <p class="text-xs text-slate-500 font-bold uppercase mb-1">From</p>
+              <p class="text-3xl font-black text-white">₹2,49,900</p>
+            </div>
+            <button class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors shadow-[0_0_20px_rgba(59,130,246,0.4)]">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="glass-panel rounded-[2rem] p-8 group hover:border-purple-500/50 hover:shadow-[0_0_40px_rgba(168,85,247,0.15)] transition-all duration-500 flex flex-col scroll-card-up relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          
+          <h3 class="text-3xl font-bold text-white mb-1">Studio Core</h3>
+          <p class="text-sm text-slate-400 mb-8">Outperform the impossible.</p>
+          
+          <div class="h-48 flex justify-center items-center mb-8 relative z-10">
+            <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=600" class="h-[110%] object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-700 drop-shadow-2xl" alt="Desktop Studio">
+          </div>
+          
+          <ul class="text-slate-300 text-sm space-y-4 mb-8 font-medium flex-grow border-t border-white/5 pt-6 relative z-10">
+            <li class="flex gap-3 items-center"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> M4 Ultra Architecture</li>
+            <li class="flex gap-3 items-center"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> Dual Ray Tracing Engines</li>
+            <li class="flex gap-3 items-center"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span> 6x Thunderbolt 5 Ports</li>
+          </ul>
+          
+          <div class="flex items-end justify-between mt-auto relative z-10">
+            <div>
+              <p class="text-xs text-slate-500 font-bold uppercase mb-1">From</p>
+              <p class="text-3xl font-black text-white">₹3,99,900</p>
+            </div>
+            <button class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center hover:bg-purple-500 transition-colors shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="w-full relative py-40 bg-[#0f172a] overflow-hidden border-t border-white/5 scroll-card-up">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-blue-600/30 to-transparent blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-[1400px] mx-auto px-6 text-center relative z-10">
+      <h2 class="text-6xl md:text-8xl font-black text-white tracking-tighter mb-8">1 Billion Colors. <br>Zero Compromise.</h2>
+      <p class="text-2xl text-slate-400 max-w-3xl mx-auto font-medium mb-16">
+        The Liquid Retina XDR display features 10,000 mini-LEDs, delivering extreme dynamic range, a 1,000,000:1 contrast ratio, and ProMotion 120Hz refresh rates.
+      </p>
+      
+      <div class="w-full max-w-6xl mx-auto aspect-video rounded-3xl overflow-hidden border-4 border-slate-800 shadow-[0_0_100px_rgba(59,130,246,0.3)] relative group">
+        <img src="https://cdn.wallpapersafari.com/20/29/YLuhHg.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="Display Colors">
+        <div class="absolute inset-0 border-[8px] border-black rounded-3xl z-10 pointer-events-none"></div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

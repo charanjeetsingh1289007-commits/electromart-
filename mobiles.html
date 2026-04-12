@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smartphones | ElectroHub Pro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-deep: #030712;
+      --surface-dark: #0f172a;
+      --border-glow: rgba(255, 255, 255, 0.1);
+    }
+
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background-color: var(--bg-deep);
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    /* --- Industrial Grid Background for Hero --- */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    }
+
+    /* --- Universal Utilities --- */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glow);
+    }
+    .text-gradient {
+      background: linear-gradient(to right, #fff, #64748b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* --- Hero Animations --- */
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-20px) rotate(-2deg); }
+    }
+    .animate-hero-phone { animation: heroFloat 6s ease-in-out infinite; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up { animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    /* =========================================
+       INDIVIDUAL SCROLL-DRIVEN CARD ANIMATIONS
+       ========================================= */
+    @supports (animation-timeline: view()) {
+      
+      /* Card 1: Apple (Swings in from the Left) */
+      .card-anim-1 {
+        animation: swingLeft linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 40%;
+      }
+      @keyframes swingLeft {
+        0% { opacity: 0; transform: perspective(1000px) translateX(-100px) rotateY(-20deg) scale(0.9); }
+        100% { opacity: 1; transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1); }
+      }
+
+      /* Card 2: Samsung (Rises heavily from the Bottom) */
+      .card-anim-2 {
+        animation: riseUp linear both;
+        animation-timeline: view();
+        animation-range: entry 5% cover 45%;
+      }
+      @keyframes riseUp {
+        0% { opacity: 0; transform: translateY(150px) scale(0.8); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      /* Card 3: Google (Swings in from the Right) */
+      .card-anim-3 {
+        animation: swingRight linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 40%;
+      }
+      @keyframes swingRight {
+        0% { opacity: 0; transform: perspective(1000px) translateX(100px) rotateY(20deg) scale(0.9); }
+        100% { opacity: 1; transform: perspective(1000px) translateX(0) rotateY(0deg) scale(1); }
+      }
+
+      /* Card 4: OnePlus (3D Flip from Top) */
+      .card-anim-4 {
+        animation: flipDown linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 35%;
+      }
+      @keyframes flipDown {
+        0% { opacity: 0; transform: perspective(1000px) translateY(-50px) rotateX(30deg); }
+        100% { opacity: 1; transform: perspective(1000px) translateY(0) rotateX(0deg); }
+      }
+
+      /* Card 5: Nothing (Glitchy Scale/Pulse Reveal) */
+      .card-anim-5 {
+        animation: pulseScale linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 40%;
+      }
+      @keyframes pulseScale {
+        0% { opacity: 0; transform: scale(0.5); filter: blur(10px) brightness(2); }
+        50% { opacity: 0.8; transform: scale(1.05); filter: blur(0px) brightness(1.5); }
+        100% { opacity: 1; transform: scale(1); filter: blur(0px) brightness(1); }
+      }
+
+      /* Card 6: Xiaomi (Twist and Lock) */
+      .card-anim-6 {
+        animation: twistLock linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 45%;
+      }
+      @keyframes twistLock {
+        0% { opacity: 0; transform: perspective(1000px) translateZ(-200px) rotateZ(-10deg); }
+        100% { opacity: 1; transform: perspective(1000px) translateZ(0) rotateZ(0deg); }
+      }
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-cyan-500 selection:text-white">
+
+  <header class="border-b border-white/10 bg-[#030712]/80 backdrop-blur-xl sticky top-0 z-50 transition-all duration-300">
+    <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-white text-black flex items-center justify-center rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <span class="text-xl font-extrabold tracking-tight text-white">ElectroHub.</span>
+      </a>
+      
+      <nav class="hidden md:flex gap-10 items-center font-bold text-sm text-slate-400">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="laptops.html" class="hover:text-white transition-colors">Laptops</a>
+        <a href="mobiles.html" class="text-white relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-[2px] after:bg-white">Mobiles</a>
+        <a href="climate.html" class="hover:text-white transition-colors">Climate</a>
+      </nav>
+
+      <div class="flex gap-6 items-center">
+        <a href="#" class="text-slate-400 hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></a>
+        <a href="#" class="text-slate-400 hover:text-white transition-colors relative">
+          <span class="absolute -top-2 -right-2 bg-cyan-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.6)]">2</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="relative w-full h-[60vh] md:h-[80vh] flex items-center overflow-hidden border-b border-white/5">
+    <div class="absolute inset-0 bg-grid z-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-900/10 to-transparent z-0"></div>
+    
+    <div class="max-w-[1400px] mx-auto w-full px-6 relative z-10 flex flex-col md:flex-row items-center justify-between">
+      <div class="md:w-3/5 animate-fade-up">
+        <span class="text-cyan-400 font-bold tracking-[0.2em] uppercase text-xs mb-4 block">The Handheld Revolution</span>
+        <h1 class="text-6xl md:text-[6rem] font-black tracking-tighter mb-6 leading-[0.9] text-gradient">
+          POCKET <br> SIZED <br> POWER.
+        </h1>
+        <p class="text-slate-400 text-xl md:text-2xl max-w-lg leading-relaxed font-light">
+          Optical-grade titanium. AI processors that outpace desktops. The future is calling.
+        </p>
+      </div>
+      
+      <div class="hidden md:flex w-2/5 justify-center relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/30 blur-[80px] rounded-full"></div>
+        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&q=80&w=800" class="w-80 rounded-[3rem] drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] animate-hero-phone border border-white/10 mix-blend-lighten" alt="Premium Smartphone">
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-grow max-w-[1400px] mx-auto w-full px-6 py-32 relative z-10">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <article class="glass-panel rounded-[2rem] p-6 group hover:shadow-[0_0_40px_rgba(255,255,255,0.05)] transition-all duration-500 relative flex flex-col card-anim-1 cursor-pointer overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-800/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <span class="absolute top-6 left-6 bg-white text-black text-xs font-black px-4 py-1.5 rounded-full z-10 uppercase tracking-widest">Bestseller</span>
+        
+        <div class="aspect-[4/5] bg-gradient-to-b from-slate-800 to-slate-950 rounded-2xl mb-8 flex justify-center items-center overflow-hidden border border-white/5 relative z-10">
+          <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&q=80&w=400" alt="iPhone 15 Pro" class="w-2/3 object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-700 drop-shadow-2xl">
+        </div>
+        
+        <div class="flex-1 flex flex-col relative z-10">
+          <p class="text-xs font-extrabold text-slate-500 uppercase tracking-widest mb-2">Apple</p>
+          <h3 class="text-2xl font-bold text-white mb-2">iPhone 15 Pro Max</h3>
+          <p class="text-sm text-slate-400 mb-8">Forged in Titanium. A17 Pro chip. The definitive camera system.</p>
+          <div class="mt-auto flex items-end justify-between border-t border-white/10 pt-6">
+            <div>
+              <p class="text-sm text-slate-500 line-through">₹1,59,900</p>
+              <p class="text-3xl font-black text-white">₹1,48,900</p>
+            </div>
+            <a href="product.html" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors backdrop-blur-md">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="glass-panel rounded-[2rem] p-6 group hover:shadow-[0_0_40px_rgba(168,85,247,0.15)] hover:border-purple-500/30 transition-all duration-500 relative flex flex-col card-anim-2 cursor-pointer overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <span class="absolute top-6 left-6 bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-xs font-black px-4 py-1.5 rounded-full z-10 uppercase tracking-widest">Galaxy AI</span>
+        
+        <div class="aspect-[4/5] bg-gradient-to-b from-slate-800 to-slate-950 rounded-2xl mb-8 flex justify-center items-center overflow-hidden border border-white/5 relative z-10">
+          <div class="absolute inset-0 bg-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&q=80&w=400" alt="Samsung Galaxy S24" class="w-2/3 object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-700 drop-shadow-2xl">
+        </div>
+        
+        <div class="flex-1 flex flex-col relative z-10">
+          <p class="text-xs font-extrabold text-slate-500 uppercase tracking-widest mb-2">Samsung</p>
+          <h3 class="text-2xl font-bold text-white mb-2">Galaxy S24 Ultra</h3>
+          <p class="text-sm text-slate-400 mb-8">Built-in S Pen. 200MP Main Camera. Powered by advanced AI.</p>
+          <div class="mt-auto flex items-end justify-between border-t border-white/10 pt-6">
+            <div>
+              <p class="text-3xl font-black text-white">₹1,29,999</p>
+            </div>
+            <a href="product.html" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white group-hover:bg-purple-500 group-hover:text-white transition-colors backdrop-blur-md">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="glass-panel rounded-[2rem] p-6 group hover:shadow-[0_0_40px_rgba(234,179,8,0.1)] hover:border-yellow-500/30 transition-all duration-500 relative flex flex-col card-anim-3 cursor-pointer overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        
+        <div class="aspect-[4/5] bg-gradient-to-b from-slate-800 to-slate-950 rounded-2xl mb-8 flex justify-center items-center overflow-hidden border border-white/5 relative z-10">
+          <img src="https://static0.pocketnowimages.com/wordpress/wp-content/uploads/wm/2023/10/pixel-8-pro-official-in-house-2-1.jpeg?w=1600&h=900&fit=crop" alt="Google Pixel" class="w-2/3 object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-700 drop-shadow-2xl mix-blend-lighten">
+        </div>
+        
+        <div class="flex-1 flex flex-col relative z-10">
+          <p class="text-xs font-extrabold text-slate-500 uppercase tracking-widest mb-2">Google</p>
+          <h3 class="text-2xl font-bold text-white mb-2">Pixel 8 Pro</h3>
+          <p class="text-sm text-slate-400 mb-8">Tensor G3 computing. Computational photography perfected.</p>
+          <div class="mt-auto flex items-end justify-between border-t border-white/10 pt-6">
+            <div>
+              <p class="text-3xl font-black text-white">₹1,06,999</p>
+            </div>
+            <a href="product.html" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white group-hover:bg-yellow-500 group-hover:text-black transition-colors backdrop-blur-md">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="glass-panel rounded-[2rem] p-6 group hover:shadow-[0_0_40px_rgba(239,68,68,0.15)] hover:border-red-500/30 transition-all duration-500 relative flex flex-col card-anim-4 cursor-pointer overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-red-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        
+        <div class="aspect-[4/5] bg-gradient-to-b from-slate-800 to-slate-950 rounded-2xl mb-8 flex justify-center items-center overflow-hidden border border-white/5 relative z-10">
+          <img src="https://www.oneplus.com/content/dam/oasis/page/2024/global/product/waffle/share.jpg" alt="OnePlus" class="w-[85%] object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-700 drop-shadow-2xl">
+        </div>
+        
+        <div class="flex-1 flex flex-col relative z-10">
+          <p class="text-xs font-extrabold text-slate-500 uppercase tracking-widest mb-2">OnePlus</p>
+          <h3 class="text-2xl font-bold text-white mb-2">OnePlus 12 5G</h3>
+          <p class="text-sm text-slate-400 mb-8">Hasselblad optical array. 100W SUPERVOOC charging speeds.</p>
+          <div class="mt-auto flex items-end justify-between border-t border-white/10 pt-6">
+            <div>
+              <p class="text-3xl font-black text-white">₹64,999</p>
+            </div>
+            <a href="product.html" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white group-hover:bg-red-500 group-hover:text-white transition-colors backdrop-blur-md">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="glass-panel rounded-[2rem] p-6 group hover:shadow-[0_0_50px_rgba(255,255,255,0.15)] hover:border-white/50 transition-all duration-500 relative flex flex-col card-anim-5 cursor-pointer overflow-hidden">
+        <span class="absolute top-6 left-6 border border-white text-white text-xs font-black px-4 py-1.5 rounded-full z-10 uppercase tracking-widest">Trending</span>
+        
+        <div class="aspect-[4/5] bg-black rounded-2xl mb-8 flex justify-center items-center overflow-hidden border border-white/10 relative z-10">
+          <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity animate-pulse"></div>
+          <img src="https://in.static.webuy.com/product_images/Phones/Phones%20Android/SNOTP212G512GDGUNLB_l.jpg" alt="Nothing Phone" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 mix-blend-lighten opacity-80 group-hover:opacity-100">
+        </div>
+        
+        <div class="flex-1 flex flex-col relative z-10">
+          <p class="text-xs font-extrabold text-slate-500 uppercase tracking-widest mb-2">Nothing</p>
+          <h3 class="text-2xl font-bold text-white mb-2">Phone (2)</h3>
+          <p class="text-sm text-slate-400 mb-8">Glyph Interface. Nothing OS 2.0. Transparent engineering.</p>
+          <div class="mt-auto flex items-end justify-between border-t border-white/10 pt-6">
+            <div>
+              <p class="text-3xl font-black text-white">₹39,999</p>
+            </div>
+            <a href="product.html" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors backdrop-blur-md">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="glass-panel rounded-[2rem] p-6 group hover:shadow-[0_0_40px_rgba(249,115,22,0.1)] hover:border-orange-500/30 transition-all duration-500 relative flex flex-col card-anim-6 cursor-pointer overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-orange-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        
+        <div class="aspect-[4/5] bg-gradient-to-b from-slate-800 to-slate-950 rounded-2xl mb-8 flex justify-center items-center overflow-hidden border border-white/5 relative z-10">
+          <img src="https://www.cnet.com/a/img/resize/11224276cb9d3ce4b87225f59dc083561808d268/hub/2024/04/04/89d09a95-5483-4846-9495-0ff02091e2ec/xiaomi-14-ultra-promo-lanxon-cnet-review-18.jpg?auto=webp&fit=crop&height=1200&width=1200" alt="Xiaomi" class="w-[90%] object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-700 drop-shadow-2xl mix-blend-lighten">
+        </div>
+        
+        <div class="flex-1 flex flex-col relative z-10">
+          <p class="text-xs font-extrabold text-slate-500 uppercase tracking-widest mb-2">Xiaomi</p>
+          <h3 class="text-2xl font-bold text-white mb-2">Xiaomi 14 Ultra</h3>
+          <p class="text-sm text-slate-400 mb-8">Leica Summilux optics. Seamless liquid display architecture.</p>
+          <div class="mt-auto flex items-end justify-between border-t border-white/10 pt-6">
+            <div>
+              <p class="text-3xl font-black text-white">₹99,999</p>
+            </div>
+            <a href="product.html" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white group-hover:bg-orange-500 group-hover:text-white transition-colors backdrop-blur-md">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+</body>
+</html>

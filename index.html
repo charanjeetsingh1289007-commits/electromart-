@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroHub | The Future of Hardware</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --bg-deep: #030712;
+            --surface: #0f172a;
+            --surface-light: #1e293b;
+            --accent-blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* =========================================
+           1. INTRO ANIMATIONS
+           ========================================= */
+        @keyframes logoJourney {
+            0%, 10% { transform: translate(10vw, 40vh) scale(4); opacity: 0; }
+            20% { transform: translate(10vw, 40vh) scale(4); opacity: 1; }
+            40% { transform: translate(10vw, 30vh) scale(4); opacity: 1; }
+            100% { transform: translate(0, 0) scale(1); opacity: 1; }
+        }
+
+        .animate-logo {
+            animation: logoJourney 4s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+            transform-origin: top left;
+        }
+
+        @keyframes dynamicPopIn {
+            0% { transform: translateX(-50%) translateY(-100px) scale(0.5); opacity: 0; }
+            100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+        }
+
+        .notification-pill {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            animation: dynamicPopIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 3.8s forwards;
+            opacity: 0;
+            z-index: 9999;
+        }
+
+        .page-fade { opacity: 0; animation: fadeIn 1.5s ease 2.5s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* =========================================
+           2. SCROLL-DRIVEN MAGIC (No JS)
+           ========================================= */
+        @supports (animation-timeline: view()) {
+            
+            /* Fade and slide up as elements enter the viewport */
+            .scroll-reveal {
+                animation: reveal linear both;
+                animation-timeline: view();
+                animation-range: entry 5% cover 30%;
+            }
+
+            /* Image Parallax Effect */
+            .parallax-img {
+                animation: parallax linear both;
+                animation-timeline: view();
+                animation-range: cover 0% cover 100%;
+            }
+
+            /* Scale up slightly on scroll */
+            .scale-reveal {
+                animation: scaleUp linear both;
+                animation-timeline: view();
+                animation-range: entry 10% cover 50%;
+            }
+
+            @keyframes reveal {
+                0% { opacity: 0; transform: translateY(80px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+
+            @keyframes parallax {
+                0% { transform: translateY(-10%); scale: 1.1; }
+                100% { transform: translateY(10%); scale: 1.1; }
+            }
+
+            @keyframes scaleUp {
+                0% { opacity: 0; transform: scale(0.8) translateY(50px); }
+                100% { opacity: 1; transform: scale(1) translateY(0); }
+            }
+        }
+
+        /* =========================================
+           3. THE GATE (Contact Section)
+           ========================================= */
+        .gate-container { view-timeline-name: --gate-timeline; }
+
+        @supports (animation-timeline: view()) {
+            .gate-door-left { animation: slideGateLeft linear both; animation-timeline: --gate-timeline; animation-range: entry 30% exit 100%; }
+            .gate-door-right { animation: slideGateRight linear both; animation-timeline: --gate-timeline; animation-range: entry 30% exit 100%; }
+            .gate-content-scale { animation: scaleContent linear both; animation-timeline: --gate-timeline; animation-range: entry 30% exit 100%; }
+        }
+
+        @keyframes slideGateLeft { to { transform: translateX(-100%); } }
+        @keyframes slideGateRight { to { transform: translateX(100%); } }
+        @keyframes scaleContent { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* Custom Gradients & Utilities */
+        .glass-panel { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); }
+        .text-gradient { background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="selection:bg-blue-500 selection:text-white">
+
+    <div class="notification-pill glass-panel text-white shadow-2xl rounded-full px-6 py-3 flex items-center gap-4 cursor-pointer hover:bg-white/10 transition-colors">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        </div>
+        <div>
+            <p class="text-sm font-bold m-0 leading-tight">ElectroHub Fall Event</p>
+            <p class="text-xs text-slate-300 m-0">Pre-order the new ecosystem today.</p>
+        </div>
+    </div>
+
+    <header class="fixed top-0 w-full z-50 px-8 py-6 pointer-events-none mix-blend-difference">
+        <div class="max-w-[1400px] mx-auto flex justify-between items-center pointer-events-auto">
+            <a href="#" class="flex items-center gap-3 text-2xl font-extrabold text-white no-underline animate-logo">
+                <div class="bg-white text-black w-10 h-10 flex items-center justify-center rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.3)]">E</div>
+                ElectroHub.
+            </a>
+            <nav class="hidden md:flex gap-10 text-sm font-bold text-slate-300 page-fade">
+                <a href="mobiles.html" class="hover:text-white transition-colors">Phones</a>
+                <a href="mac.html" class="hover:text-white transition-colors">Macs</a>
+                <a href="smarthome.html" class="hover:text-white transition-colors">Smart Home</a>
+                <a href="climate.html" class="hover:text-white transition-colors">Climates</a>
+                <a href="laptops.html" class="hover:text-white transition-colors">Laptops</a>
+                <a href="contactus.html" class="hover:text-white transition-colors">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="h-[100svh] flex flex-col items-center justify-center relative z-10 page-fade">
+        <div class="text-center px-4 relative z-20 mt-20">
+            <h2 class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-6">The Next Generation</h2>
+            <h1 class="text-[5rem] md:text-[10rem] font-black tracking-tighter leading-none mb-6 text-gradient">
+                PRO<br>BEYOND.
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto font-medium mb-12">
+                A completely unified ecosystem. Titanium frames. Quantum processing. Absolute control.
+            </p>
+            <div class="flex gap-6 justify-center">
+                <a href="#phones" class="bg-white text-black px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.2)]">Explore Lineup</a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce opacity-50">
+            <span class="text-xs uppercase tracking-widest mb-2 font-bold">Scroll</span>
+            <div class="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+    </main>
+
+    <section id="phones" class="min-h-screen py-32 px-4 md:px-8 max-w-[1400px] mx-auto relative">
+        <div class="text-center mb-24 scroll-reveal">
+            <h2 class="text-5xl md:text-7xl font-black mb-4">ElectroPhone 16 Pro</h2>
+            <p class="text-2xl text-slate-400 font-medium">Forged in Titanium. Powered by Neural Core.</p>
+        </div>
+
+        <div class="relative w-full h-[60vh] md:h-[80vh] rounded-[3rem] overflow-hidden scroll-reveal shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-slate-800">
+            <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=2000&auto=format&fit=crop" alt="Titanium Phone" class="w-full h-full object-cover parallax-img opacity-80 mix-blend-screen">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            
+            <div class="absolute bottom-12 left-12 right-12 md:bottom-20 md:left-20 flex flex-col md:flex-row justify-between items-end">
+                <div>
+                    <h3 class="text-4xl md:text-6xl font-bold mb-2">Aerospace Grade.</h3>
+                    <p class="text-xl text-slate-300 max-w-md">The strongest, lightest metal we've ever used. Engineered to survive the extremes.</p>
+                </div>
+                <div class="mt-8 md:mt-0 text-left md:text-right">
+                    <p class="text-3xl font-bold text-blue-400">48MP</p>
+                    <p class="text-sm text-slate-400 uppercase tracking-widest">Main Camera Sensor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="laptops" class="py-32 px-4 md:px-8 max-w-[1400px] mx-auto">
+        <div class="mb-20 scroll-reveal">
+            <h2 class="text-5xl md:text-7xl font-black mb-4 text-gradient">ElectroBook Studio</h2>
+            <p class="text-2xl text-slate-400 font-medium">Render reality. Compile the future.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[800px]">
+            
+            <div class="md:col-span-2 md:row-span-2 glass-panel rounded-3xl p-10 relative overflow-hidden group scale-reveal cursor-pointer">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <h3 class="text-3xl font-bold relative z-10">M4 Quantum Chip</h3>
+                <p class="text-slate-400 relative z-10 mt-2 mb-8">Up to 128GB Unified Memory. Desktop power, untethered.</p>
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1000&q=80" alt="Laptop Top View" class="absolute bottom-[-10%] right-[-10%] w-[80%] object-contain group-hover:scale-105 transition-transform duration-700">
+            </div>
+
+            <div class="glass-panel rounded-3xl p-10 flex flex-col justify-center items-center text-center scale-reveal hover:bg-slate-800 transition-colors cursor-pointer">
+                <svg class="w-12 h-12 text-pink-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <h4 class="text-5xl font-black mb-2">24<span class="text-2xl text-slate-500">hrs</span></h4>
+                <p class="text-slate-400 font-medium">Continuous playback battery life. Work anywhere.</p>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-10 relative overflow-hidden scale-reveal group cursor-pointer text-center md:text-left flex flex-col justify-end">
+                <div class="absolute inset-0 bg-[url('https://www.mycomputerworks.co.uk/wp-content/uploads/2025/01/My-Computer-Works-1024x805.jpg')] bg-cover bg-center opacity-30 group-hover:scale-110 transition-transform duration-700"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-transparent"></div>
+                <h4 class="text-2xl font-bold relative z-10 text-white">Liquid Retina XDR</h4>
+                <p class="text-slate-300 relative z-10 text-sm mt-2">1,000,000:1 contrast ratio. Extreme dynamic range.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="smarthome" class="py-32 relative">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-8">
+            <div class="text-center md:text-left mb-20 scroll-reveal">
+                <h2 class="text-5xl md:text-7xl font-black mb-4 text-gradient">The Living Home</h2>
+                <p class="text-2xl text-slate-400 font-medium">Appliances that anticipate your needs.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-12 relative items-start">
+                
+                <div class="w-full md:w-1/2 md:sticky top-32 h-[50vh] md:h-[70vh] rounded-[2rem] overflow-hidden border border-slate-800 scale-reveal z-10">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=80" alt="Smart Refrigerator" class="w-full h-full object-cover">
+                    <div class="absolute top-8 right-8 glass-panel rounded-2xl p-4 flex items-center gap-4">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                        <span class="font-bold text-sm">FrostSense AI Active</span>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 flex flex-col gap-24 pt-10 md:pt-32 pb-32">
+                    
+                    <div class="scroll-reveal">
+                        <h3 class="text-4xl font-bold mb-4">Aura Smart Fridge</h3>
+                        <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                            Not just cold storage. The Aura uses internal cameras and object recognition to track expiration dates, suggest recipes based on what you have, and automatically order groceries when you're running low. The transparent OLED door lets you see inside without letting cold air escape.
+                        </p>
+                        <ul class="text-slate-300 space-y-3 font-medium">
+                            <li class="flex gap-3"><span class="text-blue-500">✓</span> Dual-cooling evaporator</li>
+                            <li class="flex gap-3"><span class="text-blue-500">✓</span> Knock-to-view glass panel</li>
+                            <li class="flex gap-3"><span class="text-blue-500">✓</span> ElectroHub OS built-in</li>
+                        </ul>
+                    </div>
+
+                    <div class="scroll-reveal">
+                        <h3 class="text-4xl font-bold mb-4">Climate Control Hub</h3>
+                        <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                            It learns your routine in 48 hours. By analyzing outside weather patterns, solar heat gain through your windows, and room occupancy, it creates the perfect microclimate in every room while reducing energy consumption by up to 30%.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="accessories" class="py-32 border-t border-slate-800 bg-slate-900/50">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-8">
+            <div class="mb-16 scroll-reveal">
+                <h2 class="text-4xl md:text-6xl font-black mb-2">The Essentials.</h2>
+                <p class="text-xl text-slate-400">Complete the ecosystem.</p>
+            </div>
+
+            <div class="flex overflow-x-auto md:grid md:grid-cols-4 gap-6 pb-10 hide-scrollbar snap-x">
+                
+                <div class="min-w-[280px] glass-panel rounded-3xl p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform cursor-pointer snap-center">
+                    <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&w=400&q=80" alt="Earbuds" class="w-32 h-32 object-contain drop-shadow-2xl mb-6 mix-blend-screen">
+                    <h4 class="font-bold text-xl mb-1">SonicPods Pro</h4>
+                    <p class="text-sm text-slate-400 mb-4">Adaptive Noise Cancellation.</p>
+                    <span class="mt-auto font-bold text-lg">$249</span>
+                </div>
+
+                <div class="min-w-[280px] glass-panel rounded-3xl p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform cursor-pointer snap-center">
+                    <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&w=400&q=80" alt="Smart Watch" class="w-32 h-32 object-contain drop-shadow-2xl mb-6 mix-blend-screen">
+                    <h4 class="font-bold text-xl mb-1">ElectroWatch Ultra</h4>
+                    <p class="text-sm text-slate-400 mb-4">Titanium case. Precision GPS.</p>
+                    <span class="mt-auto font-bold text-lg">$799</span>
+                </div>
+
+                <div class="min-w-[280px] glass-panel rounded-3xl p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform cursor-pointer snap-center">
+                    <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=400&q=80" alt="Charger" class="w-32 h-32 object-contain drop-shadow-2xl mb-6 mix-blend-screen">
+                    <h4 class="font-bold text-xl mb-1">GaN Power Hub</h4>
+                    <p class="text-sm text-slate-400 mb-4">Charge 4 devices at 140W.</p>
+                    <span class="mt-auto font-bold text-lg">$99</span>
+                </div>
+
+                <div class="min-w-[280px] glass-panel rounded-3xl p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform cursor-pointer snap-center">
+                    <img src="https://cdn.mos.cms.futurecdn.net/pqfRJZRH294SiyPqrynw4D.jpg" alt="Mouse" class="w-32 h-32 object-contain drop-shadow-2xl mb-6 mix-blend-screen">
+                    <h4 class="font-bold text-xl mb-1">Precision Mouse</h4>
+                    <p class="text-sm text-slate-400 mb-4">Ergonomic multi-surface tracking.</p>
+                    <span class="mt-auto font-bold text-lg">$89</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="h-[200vh] relative gate-container">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+            
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center z-0 gate-content-scale px-4">
+                <div class="w-64 h-64 bg-blue-600 rounded-full blur-[100px] absolute opacity-30 mix-blend-screen"></div>
+                <h2 class="text-6xl md:text-9xl font-black text-white relative z-10 mb-6 tracking-tighter">Enter the<br>Ecosystem.</h2>
+                <p class="text-xl md:text-2xl text-slate-400 relative z-10 mb-10 max-w-lg font-medium">Ready to upgrade your reality? Shop online or visit an ElectroHub near you.</p>
+                <div class="flex gap-4 relative z-10">
+                    <button class="bg-white text-black px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+                        Shop Now
+                    </button>
+                    <button class="glass-panel text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white/10 transition-colors">
+                        Find a Store
+                    </button>
+                </div>
+                
+                <footer class="absolute bottom-10 w-full text-center text-slate-500 text-sm font-medium z-10">
+                    <p>&copy; 2026 ElectroHub Inc. All rights reserved.</p>
+                </footer>
+            </div>
+
+            <div class="gate-door-left absolute top-0 left-0 w-1/2 h-full bg-[#030712] border-r border-slate-800 z-10 flex flex-col items-end justify-center pr-4 md:pr-12 shadow-[20px_0_50px_rgba(0,0,0,0.8)]">
+                <div class="w-1 h-32 bg-slate-800 rounded-full opacity-50 mb-4"></div>
+                <span class="text-slate-800 font-bold tracking-[0.5em] origin-right -rotate-90 translate-x-4">SYSTEM</span>
+            </div>
+
+            <div class="gate-door-right absolute top-0 right-0 w-1/2 h-full bg-[#030712] border-l border-slate-800 z-10 flex flex-col items-start justify-center pl-4 md:pl-12 shadow-[-20px_0_50px_rgba(0,0,0,0.8)]">
+                <div class="w-1 h-32 bg-slate-800 rounded-full opacity-50 mb-4"></div>
+                <span class="text-slate-800 font-bold tracking-[0.5em] origin-left rotate-90 -translate-x-4">READY</span>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
