@@ -3,1002 +3,435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElectroHub - Premium Electronics Designed for Performance</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>ElectroHub | The Future of Hardware</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
-            --bg-dark: #0f0f0f;
-            --bg-secondary: #1a1a1a;
-            --bg-tertiary: #2d2d2d;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --accent: #00d4ff;
-            --accent-dark: #0099cc;
-            --accent-light: #33e0ff;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --bg-deep: #030712;
+            --surface: #0f172a;
+            --surface-light: #1e293b;
+            --accent-blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
         body {
-            font-family: 'Sora', sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1f2e 100%);
-            color: var(--text-primary);
-            line-height: 1.6;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
             overflow-x: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* HEADER & NAVIGATION */
-        header {
+        /* =========================================
+           1. THE CINEMATIC SPLASH SCREEN
+           ========================================= */
+        @keyframes splashMelt {
+            0%, 80% { opacity: 1; visibility: visible; z-index: 99999; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            100% { opacity: 0; visibility: hidden; z-index: -1; backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px); pointer-events: none; }
+        }
+
+        @keyframes laserConstruct {
+            0% { width: 0px; height: 2px; opacity: 0; background: #3b82f6; box-shadow: 0 0 40px #3b82f6; }
+            20% { width: 64px; height: 2px; opacity: 1; background: #3b82f6; box-shadow: 0 0 40px #3b82f6; }
+            40%, 100% { width: 64px; height: 64px; opacity: 1; background: white; box-shadow: 0 0 50px rgba(255,255,255,0.2); border-radius: 1rem; }
+        }
+
+        @keyframes letterSnap {
+            0%, 40% { opacity: 0; transform: scale(0); }
+            50%, 100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes textReveal {
+            0%, 40% { clip-path: inset(0 100% 0 0); -webkit-clip-path: inset(0 100% 0 0); transform: translateX(-30px); opacity: 0; }
+            60%, 100% { clip-path: inset(0 0 0 0); -webkit-clip-path: inset(0 0 0 0); transform: translateX(0); opacity: 1; }
+        }
+
+        .splash-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(15, 15, 15, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
-            animation: slideDown 0.6s cubic-bezier(0.33, 0.66, 0.66, 1);
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: var(--text-primary);
-            transition: all 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
-        }
-
-        .logo:hover {
-            color: var(--accent);
-            transform: translateX(2px);
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            border-radius: 10px;
+            inset: 0;
+            background-color: #030712; 
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: splashMelt 4s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+        }
+
+        .splash-logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: laserConstruct 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .splash-letter {
+            font-size: 2rem;
             font-weight: 900;
-            font-size: 1.2rem;
-            color: var(--bg-dark);
-            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+            color: black;
+            animation: letterSnap 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .nav-links {
-            display: none;
-            gap: 3rem;
-            list-style: none;
-            align-items: center;
+        .splash-text {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -0.05em;
+            margin-left: 1rem;
+            animation: textReveal 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .nav-links.active {
-            display: flex;
+        /* =========================================
+           2. INTRO ANIMATIONS (Logo & Fade)
+           ========================================= */
+        @keyframes logoJourney {
+            0%, 10% { transform: translate(10vw, 40vh) scale(4); opacity: 0; }
+            20% { transform: translate(10vw, 40vh) scale(4); opacity: 1; }
+            40% { transform: translate(10vw, 30vh) scale(4); opacity: 1; }
+            100% { transform: translate(0, 0) scale(1); opacity: 1; }
+        }
+
+        .animate-logo {
+            animation: logoJourney 4s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+            transform-origin: top left;
+        }
+
+        @keyframes dynamicPopIn {
+            0% { transform: translateX(-50%) translateY(-100px) scale(0.5); opacity: 0; }
+            100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+        }
+
+        .notification-pill {
             position: fixed;
-            flex-direction: column;
-            top: 80px;
-            left: 0;
-            right: 0;
-            background: rgba(15, 15, 15, 0.95);
-            padding: 2rem;
-            gap: 1.5rem;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
-            animation: slideIn 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
-        }
-
-        .nav-link:hover {
-            color: var(--accent);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .nav-links {
-                display: flex;
-                position: static;
-                flex-direction: row;
-                background: none;
-                border: none;
-                padding: 0;
-                top: auto;
-            }
-        }
-
-        .nav-icons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .nav-icon-btn {
-            width: 44px;
-            height: 44px;
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            transition: all 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
-            position: relative;
-        }
-
-        .nav-icon-btn:hover {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--accent);
-            border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.1);
-        }
-
-        .cart-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 20px;
-            height: 20px;
-            background: var(--accent);
-            color: var(--bg-dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-primary);
-        }
-
-        .menu-toggle span {
-            width: 24px;
-            height: 2.5px;
-            background: var(--text-primary);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-        }
-
-        /* HERO SECTION */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            margin-top: 70px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 212, 255, 0.02) 100%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            animation: fadeInUp 1s cubic-bezier(0.33, 0.66, 0.66, 1) 0.2s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-subtitle {
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 3rem;
-        }
-
-        .btn {
-            padding: 0.9rem 2.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
-            letter-spacing: 0.5px;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            color: var(--bg-dark);
-            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1.5px solid var(--accent);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
-        }
-
-        /* SCROLL INDICATOR */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
+            top: 24px;
             left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
+            animation: dynamicPopIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 3.8s forwards;
+            opacity: 0;
+            z-index: 9999;
         }
 
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateX(-50%) translateY(0);
+        .page-fade { opacity: 0; animation: fadeIn 1.5s ease 2.5s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* =========================================
+           3. SCROLL-DRIVEN MAGIC (No JS)
+           ========================================= */
+        @supports (animation-timeline: view()) {
+            .scroll-reveal {
+                animation: reveal linear both;
+                animation-timeline: view();
+                animation-range: entry 5% cover 30%;
             }
-            50% {
-                transform: translateX(-50%) translateY(10px);
+            .parallax-img {
+                animation: parallax linear both;
+                animation-timeline: view();
+                animation-range: cover 0% cover 100%;
             }
-        }
-
-        .scroll-indicator svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-        }
-
-        /* SECTION STYLES */
-        section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-            letter-spacing: -1px;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-weight: 400;
-            max-width: 600px;
-        }
-
-        /* PRODUCTS SECTION */
-        .products-section {
-            background: linear-gradient(180deg, rgba(0, 212, 255, 0.03) 0%, transparent 100%);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .product-card {
-            background: rgba(26, 26, 26, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.33, 0.66, 0.66, 1);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            animation: fadeInUp 0.8s cubic-bezier(0.33, 0.66, 0.66, 1);
-            animation-fill-mode: both;
-        }
-
-        .product-card:nth-child(1) { animation-delay: 0.1s; }
-        .product-card:nth-child(2) { animation-delay: 0.2s; }
-        .product-card:nth-child(3) { animation-delay: 0.3s; }
-        .product-card:nth-child(4) { animation-delay: 0.4s; }
-        .product-card:nth-child(5) { animation-delay: 0.5s; }
-        .product-card:nth-child(6) { animation-delay: 0.6s; }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(0, 212, 255, 0.3);
-            background: rgba(26, 26, 26, 0.8);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 280px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 212, 255, 0.02) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s cubic-bezier(0.33, 0.66, 0.66, 1);
-        }
-
-        .product-card:hover .product-image img {
-            transform: scale(1.08);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--accent);
-            color: var(--bg-dark);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
-            z-index: 10;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-category {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .product-name {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            line-height: 1.3;
-        }
-
-        .product-description {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-            line-height: 1.5;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--accent);
-            letter-spacing: -0.5px;
-        }
-
-        .btn-small {
-            padding: 0.6rem 1.2rem;
-            font-size: 0.85rem;
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .btn-small:hover {
-            background: var(--accent);
-            color: var(--bg-dark);
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
-        }
-
-        /* FEATURES SECTION */
-        .features-section {
-            background: rgba(0, 212, 255, 0.02);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-card {
-            background: rgba(26, 26, 26, 0.4);
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.4s ease;
-            animation: fadeInUp 0.8s ease-out;
-            animation-fill-mode: both;
-        }
-
-        .feature-card:nth-child(1) { animation-delay: 0.1s; }
-        .feature-card:nth-child(2) { animation-delay: 0.2s; }
-        .feature-card:nth-child(3) { animation-delay: 0.3s; }
-
-        .feature-card:hover {
-            background: rgba(26, 26, 26, 0.6);
-            border-color: rgba(0, 212, 255, 0.3);
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.1);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.8rem;
-        }
-
-        .feature-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: var(--text-primary);
-        }
-
-        .feature-description {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* CTA SECTION */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 16px;
-            padding: 4rem 2rem;
-            text-align: center;
-            margin: 5rem 2rem;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .cta-section h2 {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .cta-section p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* FOOTER */
-        footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-            padding: 3rem 2rem 1rem;
-            margin-top: 5rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            color: var(--text-primary);
-            letter-spacing: 0.5px;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-section a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .footer-section a:hover {
-            color: var(--accent);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-            padding-top: 2rem;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            .scale-reveal {
+                animation: scaleUp linear both;
+                animation-timeline: view();
+                animation-range: entry 10% cover 50%;
             }
 
-            .hero p {
-                font-size: 1rem;
+            @keyframes reveal {
+                0% { opacity: 0; transform: translateY(80px); }
+                100% { opacity: 1; transform: translateY(0); }
             }
-
-            .section-title {
-                font-size: 1.8rem;
+            @keyframes parallax {
+                0% { transform: translateY(-10%); scale: 1.1; }
+                100% { transform: translateY(10%); scale: 1.1; }
             }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                padding: 1rem 1.5rem;
+            @keyframes scaleUp {
+                0% { opacity: 0; transform: scale(0.8) translateY(50px); }
+                100% { opacity: 1; transform: scale(1) translateY(0); }
             }
         }
+
+        /* =========================================
+           4. THE GATE (Contact Section)
+           ========================================= */
+        .gate-container { view-timeline-name: --gate-timeline; }
+
+        @supports (animation-timeline: view()) {
+            .gate-door-left { animation: slideGateLeft linear both; animation-timeline: --gate-timeline; animation-range: entry 30% exit 100%; }
+            .gate-door-right { animation: slideGateRight linear both; animation-timeline: --gate-timeline; animation-range: entry 30% exit 100%; }
+            .gate-content-scale { animation: scaleContent linear both; animation-timeline: --gate-timeline; animation-range: entry 30% exit 100%; }
+        }
+
+        @keyframes slideGateLeft { to { transform: translateX(-100%); } }
+        @keyframes slideGateRight { to { transform: translateX(100%); } }
+        @keyframes scaleContent { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* Custom Gradients & Utilities */
+        .glass-panel { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); }
+        .text-gradient { background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body>
-    <!-- HEADER -->
-    <header>
-        <nav>
-            <a href="#" class="logo">
-                <div class="logo-icon">E</div>
-                <span>ElectroHub</span>
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#products" class="nav-link">Products</a></li>
-                <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="nav-icons">
-                <button class="nav-icon-btn" title="Search">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                    </svg>
-                </button>
-                <button class="nav-icon-btn" title="Cart">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                    </svg>
-                    <span class="cart-badge">0</span>
-                </button>
-                <button class="menu-toggle" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
-    </header>
+<body class="selection:bg-blue-500 selection:text-white bg-[#030712]">
 
-    <!-- HERO SECTION -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <p class="hero-subtitle">Next Generation Electronics</p>
-            <h1>Experience Premium Performance</h1>
-            <p>Discover cutting-edge technology designed for those who demand excellence. Premium build quality, innovative features, and uncompromising performance.</p>
-            <div class="hero-buttons">
-                <a href="#products" class="btn btn-primary">Explore Collection</a>
-                <a href="#contact" class="btn btn-secondary">Learn More</a>
+    <div class="splash-screen">
+        <div class="flex items-center">
+            <div class="splash-logo-box">
+                <span class="splash-letter">E</span>
+            </div>
+            <div class="splash-text">
+                ElectroHub.
             </div>
         </div>
-        <div class="scroll-indicator">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 5v14m5-5l-5 5-5-5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-    </section>
-
-    <!-- PRODUCTS SECTION -->
-    <section class="products-section" id="products">
-        <h2 class="section-title">Featured Collection</h2>
-        <p class="section-subtitle">Handpicked premium devices engineered for performance and reliability</p>
-        <div class="product-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&q=80&w=500" alt="ElectroPhone 16 Pro">
-                    <span class="product-badge">Premium</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Flagship Phone</p>
-                    <h3 class="product-name">ElectroPhone 16 Pro</h3>
-                    <p class="product-description">Advanced AI processor with quantum computing capabilities. 5G ultra-fast connectivity with enterprise-grade security.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹89,999</span>
-                        <button class="btn-small">View Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=500" alt="ElectroBook Pro">
-                    <span class="product-badge">Professional</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Workstation</p>
-                    <h3 class="product-name">ElectroBook Pro 16"</h3>
-                    <p class="product-description">M4 processor with 48GB unified memory. Liquid Retina XDR display with 120Hz ProMotion technology for seamless creativity.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹1,49,999</span>
-                        <button class="btn-small">View Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&q=80&w=500" alt="SonicPods Pro">
-                    <span class="product-badge">Best Audio</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Audio System</p>
-                    <h3 class="product-name">SonicPods Pro</h3>
-                    <p class="product-description">Premium noise cancellation with spatial audio. 36-hour battery life with adaptive listening technology for immersive sound.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹24,999</span>
-                        <button class="btn-small">View Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&q=80&w=500" alt="ElectroWatch Ultra">
-                    <span class="product-badge">Smart</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Wearable</p>
-                    <h3 class="product-name">ElectroWatch Ultra</h3>
-                    <p class="product-description">Titanium construction with always-on AMOLED display. Advanced health monitoring with dual-frequency GPS precision.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹34,999</span>
-                        <button class="btn-small">View Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 5 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=500" alt="FrostSense Hub">
-                    <span class="product-badge">Smart Home</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">IoT Device</p>
-                    <h3 class="product-name">FrostSense Hub</h3>
-                    <p class="product-description">AI-powered temperature management with predictive analytics. Voice control integration with seamless ecosystem connectivity.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹1,89,999</span>
-                        <button class="btn-small">View Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 6 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&q=80&w=500" alt="GaN Power Hub">
-                    <span class="product-badge">Essential</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Accessory</p>
-                    <h3 class="product-name">GaN Power Hub</h3>
-                    <p class="product-description">140W ultra-fast charging for multiple devices. Compact design with thermal management for professional portability.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹9,999</span>
-                        <button class="btn-small">View Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURES SECTION -->
-    <section class="features-section" id="features">
-        <h2 class="section-title">Why Choose ElectroHub</h2>
-        <p class="section-subtitle">Premium quality meets innovative design in every product</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3 class="feature-title">Enterprise Security</h3>
-                <p class="feature-description">Military-grade encryption and multi-layer security protocols. Your data is protected with the highest standards of cybersecurity.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Lightning Fast</h3>
-                <p class="feature-description">Next-generation processors deliver unprecedented performance. Handle demanding workloads with zero lag or compromise.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌍</div>
-                <h3 class="feature-title">Global Support</h3>
-                <p class="feature-description">24/7 customer support across 50+ countries. Premium warranty and hassle-free after-sales service worldwide.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA SECTION -->
-    <div class="cta-section" id="contact">
-        <h2>Ready to Upgrade?</h2>
-        <p>Join thousands of professionals who trust ElectroHub for premium technology solutions</p>
-        <a href="#products" class="btn btn-primary">Start Shopping</a>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Shop</h3>
-                <ul>
-                    <li><a href="#products">All Products</a></li>
-                    <li><a href="#">Phones</a></li>
-                    <li><a href="#">Laptops</a></li>
-                    <li><a href="#">Audio</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Support</h3>
-                <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Shipping Info</a></li>
-                    <li><a href="#">Returns</a></li>
-                    <li><a href="#">Track Order</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Press</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
+    <header class="fixed top-0 w-full z-50 px-8 py-6 pointer-events-none mix-blend-difference transition-all duration-300">
+        
+        <input type="checkbox" id="mobile-menu-toggle" class="hidden peer pointer-events-auto">
+
+        <div class="max-w-[1400px] mx-auto flex justify-between items-center relative z-50 pointer-events-auto">
+            
+            <a href="index.html" class="flex items-center gap-3 text-2xl font-extrabold text-white no-underline animate-logo group">
+                <div class="bg-white text-black w-10 h-10 flex items-center justify-center rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-110 transition-transform">
+                    <span class="font-black text-lg">E</span>
+                </div>
+                ElectroHub.
+            </a>
+
+            <nav class="hidden md:flex gap-10 text-sm font-bold text-slate-300 page-fade">
+                <a href="shop.html" class="hover:text-white transition-colors">Shop All</a>
+                <a href="mac.html" class="hover:text-white transition-colors">Mac</a>
+                <a href="laptops.html" class="hover:text-white transition-colors">Laptops</a>
+                <a href="mobiles.html" class="hover:text-white transition-colors">Mobiles</a>
+                <a href="climate.html" class="hover:text-white transition-colors">Climate</a>
+                <a href="smarthome.html" class="hover:text-white transition-colors">Smart Home</a>
+            </nav>
+
+            <div class="flex gap-4 items-center page-fade">
+                <button class="text-slate-300 hover:text-white transition-colors">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </button>
+
+                <label for="mobile-menu-toggle" class="md:hidden text-white cursor-pointer hover:text-blue-400 transition-colors">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </label>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 ElectroHub. Crafted with precision. All rights reserved.</p>
+
+        <div class="fixed inset-0 h-screen bg-[#020617]/95 backdrop-blur-3xl z-40 opacity-0 pointer-events-none peer-checked:opacity-100 peer-checked:pointer-events-auto transition-opacity duration-300 flex flex-col justify-center items-center md:hidden">
+            <label for="mobile-menu-toggle" class="absolute top-6 right-6 text-white cursor-pointer p-2 hover:text-blue-500">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </label>
+
+            <nav class="flex flex-col gap-8 text-center">
+                <a href="index.html" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">Home</a>
+                <a href="shop.html" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">Shop All</a>
+                <a href="mac.html" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">Mac</a>
+                <a href="laptops.html" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">Laptops</a>
+                <a href="mobiles.html" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">Mobiles</a>
+                <a href="climate.html" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">Climate</a>
+                <a href="smarthome.html" class="text-3xl font-black text-white hover:text-blue-500 transition-colors">Smart Home</a>
+                <a href="contactus.html" class="text-3xl font-black text-blue-400 mt-4">Contact Us</a>
+            </nav>
         </div>
-    </footer>
+    </header>
 
-    <script>
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
+    <main class="h-[100svh] flex flex-col items-center justify-center relative z-10 page-fade">
+        <div class="text-center px-4 relative z-20 mt-20">
+            <h2 class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-6">The Next Generation</h2>
+            <h1 class="text-[5rem] md:text-[10rem] font-black tracking-tighter leading-none mb-6 text-gradient">
+                PRO<br>BEYOND.
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto font-medium mb-12">
+                A completely unified ecosystem. Titanium frames. Quantum processing. Absolute control.
+            </p>
+            <div class="flex gap-6 justify-center">
+                <a href="#phones" class="bg-white text-black px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.2)]">Explore Lineup</a>
+            </div>
+        </div>
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce opacity-50">
+            <span class="text-xs uppercase tracking-widest mb-2 font-bold">Scroll</span>
+            <div class="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+    </main>
 
-        // Close menu when link is clicked
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
+    <section id="phones" class="min-h-screen py-32 px-4 md:px-8 max-w-[1400px] mx-auto relative">
+        <div class="text-center mb-24 scroll-reveal">
+            <h2 class="text-5xl md:text-7xl font-black mb-4 text-gradient">ElectroPhone 16 Pro</h2>
+            <p class="text-2xl text-slate-400 font-medium">Forged in Titanium. Powered by Neural Core.</p>
+        </div>
 
-        // Scroll reveal animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        <div class="relative w-full h-[60vh] md:h-[80vh] rounded-[3rem] overflow-hidden scroll-reveal shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-slate-800">
+            <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=2000&auto=format&fit=crop" alt="Titanium Phone" class="w-full h-full object-cover parallax-img opacity-80 mix-blend-screen">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            
+            <div class="absolute bottom-12 left-12 right-12 md:bottom-20 md:left-20 flex flex-col md:flex-row justify-between items-end">
+                <div>
+                    <h3 class="text-4xl md:text-6xl font-bold mb-2">Aerospace Grade.</h3>
+                    <p class="text-xl text-slate-300 max-w-md">The strongest, lightest metal we've ever used. Engineered to survive the extremes.</p>
+                </div>
+                <div class="mt-8 md:mt-0 text-left md:text-right">
+                    <p class="text-3xl font-bold text-blue-400">48MP</p>
+                    <p class="text-sm text-slate-400 uppercase tracking-widest">Main Camera Sensor</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+    <section id="laptops" class="py-32 px-4 md:px-8 max-w-[1400px] mx-auto">
+        <div class="mb-20 scroll-reveal">
+            <h2 class="text-5xl md:text-7xl font-black mb-4 text-gradient">ElectroBook Studio</h2>
+            <p class="text-2xl text-slate-400 font-medium">Render reality. Compile the future.</p>
+        </div>
 
-        document.querySelectorAll('.product-card, .feature-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            observer.observe(el);
-        });
-    </script>
+        <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[800px]">
+            
+            <div class="md:col-span-2 md:row-span-2 glass-panel rounded-3xl p-10 relative overflow-hidden group scale-reveal cursor-pointer">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <h3 class="text-3xl font-bold relative z-10">M4 Quantum Chip</h3>
+                <p class="text-slate-400 relative z-10 mt-2 mb-8">Up to 128GB Unified Memory. Desktop power, untethered.</p>
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1000&q=80" alt="Laptop Top View" class="absolute bottom-[-10%] right-[-10%] w-[80%] object-contain group-hover:scale-105 transition-transform duration-700">
+            </div>
+
+            <div class="glass-panel rounded-3xl p-10 flex flex-col justify-center items-center text-center scale-reveal hover:bg-slate-800 transition-colors cursor-pointer">
+                <svg class="w-12 h-12 text-pink-500 mb-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <h4 class="text-5xl font-black mb-2">24<span class="text-2xl text-slate-500">hrs</span></h4>
+                <p class="text-slate-400 font-medium">Continuous playback battery life. Work anywhere.</p>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-10 relative overflow-hidden scale-reveal group cursor-pointer text-center md:text-left flex flex-col justify-end">
+                <div class="absolute inset-0 bg-[url('https://z.nooncdn.com/products/tr:n-t_400/v1674217892/N53378691A_1.jpg')] bg-cover bg-center opacity-30 group-hover:scale-110 transition-transform duration-700"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-transparent"></div>
+                <h4 class="text-2xl font-bold relative z-10 text-white">Liquid Retina XDR</h4>
+                <p class="text-slate-300 relative z-10 text-sm mt-2">1,000,000:1 contrast ratio. Extreme dynamic range.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="smarthome" class="py-32 relative">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-8">
+            <div class="text-center md:text-left mb-20 scroll-reveal">
+                <h2 class="text-5xl md:text-7xl font-black mb-4 text-gradient">The Living Home</h2>
+                <p class="text-2xl text-slate-400 font-medium">Appliances that anticipate your needs.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-12 relative items-start">
+                
+                <div class="w-full md:w-1/2 md:sticky top-32 h-[50vh] md:h-[70vh] rounded-[2rem] overflow-hidden border border-slate-800 scale-reveal z-10">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=80" alt="Smart Refrigerator" class="w-full h-full object-cover">
+                    <div class="absolute top-8 right-8 glass-panel rounded-2xl p-4 flex items-center gap-4">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                        <span class="font-bold text-sm">FrostSense AI Active</span>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 flex flex-col gap-24 pt-10 md:pt-32 pb-32">
+                    
+                    <div class="scroll-reveal">
+                        <h3 class="text-4xl font-bold mb-4">Aura Smart Fridge</h3>
+                        <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                            Not just cold storage. The Aura uses internal cameras and object recognition to track expiration dates, suggest recipes based on what you have, and automatically order groceries when you're running low. 
+                        </p>
+                        <ul class="text-slate-300 space-y-3 font-medium">
+                            <li class="flex gap-3"><span class="text-blue-500">✓</span> Dual-cooling evaporator</li>
+                            <li class="flex gap-3"><span class="text-blue-500">✓</span> Knock-to-view glass panel</li>
+                            <li class="flex gap-3"><span class="text-blue-500">✓</span> ElectroHub OS built-in</li>
+                        </ul>
+                    </div>
+
+                    <div class="scroll-reveal">
+                        <h3 class="text-4xl font-bold mb-4">Climate Control Hub</h3>
+                        <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                            It learns your routine in 48 hours. By analyzing outside weather patterns, solar heat gain through your windows, and room occupancy, it creates the perfect microclimate in every room while reducing energy consumption by up to 30%.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="accessories" class="py-32 border-t border-slate-800 bg-slate-900/50">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-8">
+            <div class="mb-16 scroll-reveal">
+                <h2 class="text-4xl md:text-6xl font-black mb-2 text-gradient">The Essentials.</h2>
+                <p class="text-xl text-slate-400">Complete the ecosystem.</p>
+            </div>
+
+            <div class="flex overflow-x-auto md:grid md:grid-cols-4 gap-6 pb-10 hide-scrollbar snap-x">
+                
+                <div class="min-w-[280px] glass-panel rounded-3xl p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform cursor-pointer snap-center">
+                    <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&w=400&q=80" alt="Earbuds" class="w-32 h-32 object-contain drop-shadow-2xl mb-6 mix-blend-screen">
+                    <h4 class="font-bold text-xl mb-1">SonicPods Pro</h4>
+                    <p class="text-sm text-slate-400 mb-4">Adaptive Noise Cancellation.</p>
+                    <span class="mt-auto font-bold text-lg">$249</span>
+                </div>
+
+                <div class="min-w-[280px] glass-panel rounded-3xl p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform cursor-pointer snap-center">
+                    <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&w=400&q=80" alt="Smart Watch" class="w-32 h-32 object-contain drop-shadow-2xl mb-6 mix-blend-screen">
+                    <h4 class="font-bold text-xl mb-1">ElectroWatch Ultra</h4>
+                    <p class="text-sm text-slate-400 mb-4">Titanium case. Precision GPS.</p>
+                    <span class="mt-auto font-bold text-lg">$799</span>
+                </div>
+
+                <div class="min-w-[280px] glass-panel rounded-3xl p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform cursor-pointer snap-center">
+                    <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=400&q=80" alt="Charger" class="w-32 h-32 object-contain drop-shadow-2xl mb-6 mix-blend-screen">
+                    <h4 class="font-bold text-xl mb-1">GaN Power Hub</h4>
+                    <p class="text-sm text-slate-400 mb-4">Charge 4 devices at 140W.</p>
+                    <span class="mt-auto font-bold text-lg">$99</span>
+                </div>
+
+                <div class="min-w-[280px] glass-panel rounded-3xl p-8 flex flex-col items-center text-center hover:-translate-y-2 transition-transform cursor-pointer snap-center">
+                    <img src="https://images.unsplash.com/photo-1527814050087-379381547384?auto=format&fit=crop&w=400&q=80" alt="Mouse" class="w-32 h-32 object-contain drop-shadow-2xl mb-6 mix-blend-screen">
+                    <h4 class="font-bold text-xl mb-1">Precision Mouse</h4>
+                    <p class="text-sm text-slate-400 mb-4">Ergonomic multi-surface tracking.</p>
+                    <span class="mt-auto font-bold text-lg">$89</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="h-[200vh] relative gate-container">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+            
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center z-0 gate-content-scale px-4">
+                <div class="w-64 h-64 bg-blue-600 rounded-full blur-[100px] absolute opacity-30 mix-blend-screen"></div>
+                <h2 class="text-6xl md:text-9xl font-black text-white relative z-10 mb-6 tracking-tighter text-gradient">Enter the<br>Ecosystem.</h2>
+                <p class="text-xl md:text-2xl text-slate-400 relative z-10 mb-10 max-w-lg font-medium">Ready to upgrade your reality? Shop online or visit an ElectroHub near you.</p>
+                <div class="flex flex-col sm:flex-row gap-4 relative z-10">
+                    <a href="shop.html">
+                        <button class="w-full sm:w-auto bg-white text-black px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+                            Shop Now
+                        </button>
+                    </a>
+                    <a href="contactus.html">
+                        <button class="w-full sm:w-auto glass-panel text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white/10 transition-colors">
+                            Contact Us
+                        </button>
+                    </a>
+                </div>
+                
+                <footer class="absolute bottom-10 w-full text-center text-slate-500 text-sm font-medium z-10">
+                    <p>&copy; 2026 ElectroHub Inc. All rights reserved.</p>
+                </footer>
+            </div>
+
+            <div class="gate-door-left absolute top-0 left-0 w-1/2 h-full bg-[#030712] border-r border-slate-800 z-10 flex flex-col items-end justify-center pr-4 md:pr-12 shadow-[20px_0_50px_rgba(0,0,0,0.8)]">
+                <div class="w-1 h-32 bg-slate-800 rounded-full opacity-50 mb-4"></div>
+                <span class="text-slate-800 font-bold tracking-[0.5em] origin-right -rotate-90 translate-x-4">SYSTEM</span>
+            </div>
+
+            <div class="gate-door-right absolute top-0 right-0 w-1/2 h-full bg-[#030712] border-l border-slate-800 z-10 flex flex-col items-start justify-center pl-4 md:pl-12 shadow-[-20px_0_50px_rgba(0,0,0,0.8)]">
+                <div class="w-1 h-32 bg-slate-800 rounded-full opacity-50 mb-4"></div>
+                <span class="text-slate-800 font-bold tracking-[0.5em] origin-left rotate-90 -translate-x-4">READY</span>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 </html>

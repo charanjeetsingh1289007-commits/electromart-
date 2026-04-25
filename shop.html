@@ -1,757 +1,467 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop - Premium Electronics | ElectroHub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop All | ElectroHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-deep: #000000;
+      --surface-dark: #0a0a0a;
+      --border-glow: rgba(255, 255, 255, 0.08);
+      --accent: #3b82f6;
+    }
 
-        :root {
-            --bg-dark: #0f0f0f;
-            --bg-secondary: #1a1a1a;
-            --bg-tertiary: #2d2d2d;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --accent: #00d4ff;
-            --accent-dark: #0099cc;
-            --accent-light: #33e0ff;
-        }
+    body { 
+      font-family: 'Inter', -apple-system, sans-serif; 
+      background-color: var(--bg-deep);
+      color: #f5f5f7;
+      overflow-x: hidden;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    /* --- Universal Glass & Gradients --- */
+    .glass-panel {
+      background: rgba(15, 15, 15, 0.6);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-glow);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, #fff 0%, #737373 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        body {
-            font-family: 'Sora', sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1f2e 100%);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    /* =========================================
+       THE "GLASS DRAWER" PRODUCT CARD
+       (Pure CSS Interactive Details)
+       ========================================= */
+    .shop-card {
+      position: relative;
+      border-radius: 1.5rem;
+      background: linear-gradient(180deg, rgba(20,20,20,0) 0%, rgba(20,20,20,0.8) 100%);
+      border: 1px solid rgba(255,255,255,0.05);
+      overflow: hidden;
+      height: 480px; /* Fixed height for clean grid */
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-        /* HEADER */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(15, 15, 15, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
-            animation: slideDown 0.6s cubic-bezier(0.33, 0.66, 0.66, 1);
-        }
+    /* The Image */
+    .shop-card .product-img {
+      width: 100%;
+      height: 320px;
+      object-fit: contain;
+      padding: 2rem;
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* The Hidden Specs Drawer */
+    .shop-card .specs-drawer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 75%;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 2rem;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      z-index: 20;
+    }
 
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-        }
+    /* Hover State Mechanics */
+    .shop-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(255,255,255,0.05);
+      transform: translateY(-8px);
+    }
+    
+    .shop-card:hover .product-img {
+      transform: scale(0.8) translateY(-40px);
+      opacity: 0.3;
+      filter: blur(5px);
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
+    .shop-card:hover .specs-drawer {
+      transform: translateY(0);
+      opacity: 1;
+    }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: var(--bg-dark);
-            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
-        }
+    /* =========================================
+       SCROLL-DRIVEN 3D FLIP REVEALS
+       ========================================= */
+    @supports (animation-timeline: view()) {
+      .scroll-reveal-3d {
+        animation: flipUpReveal linear both;
+        animation-timeline: view();
+        animation-range: entry 5% cover 25%;
+        transform-origin: bottom center;
+      }
+      @keyframes flipUpReveal {
+        0% { opacity: 0; transform: perspective(1000px) rotateX(30deg) translateY(80px) scale(0.9); }
+        100% { opacity: 1; transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1); }
+      }
+    }
 
-        .nav-links {
-            display: none;
-            gap: 3rem;
-            list-style: none;
-            align-items: center;
-        }
+    /* Sticky Section Headers */
+    .sticky-header {
+      position: sticky;
+      top: 80px; /* Just below the main nav */
+      z-index: 40;
+      padding: 1rem 0;
+      background: linear-gradient(180deg, #000 40%, transparent 100%);
+    }
 
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--accent);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .nav-links {
-                display: flex;
-            }
-        }
-
-        .nav-icons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .nav-icon-btn {
-            width: 44px;
-            height: 44px;
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-        }
-
-        .nav-icon-btn:hover {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--accent);
-            border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.1);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-primary);
-        }
-
-        .menu-toggle span {
-            width: 24px;
-            height: 2.5px;
-            background: var(--text-primary);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-        }
-
-        /* PAGE HEADER */
-        .page-header {
-            margin-top: 70px;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
-            text-align: center;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-            letter-spacing: -1px;
-        }
-
-        .page-header p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* FILTERS */
-        .filters {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: center;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .filter-btn {
-            padding: 0.7rem 1.5rem;
-            background: rgba(26, 26, 26, 0.5);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 8px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-            text-transform: capitalize;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            color: var(--bg-dark);
-            border-color: var(--accent);
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
-        }
-
-        /* SHOP SECTION */
-        .shop-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .shop-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            color: var(--text-primary);
-            letter-spacing: -1px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .product-card {
-            background: rgba(26, 26, 26, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.33, 0.66, 0.66, 1);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            animation: fadeInUp 0.8s ease-out;
-            animation-fill-mode: both;
-        }
-
-        .product-card:nth-child(1) { animation-delay: 0.1s; }
-        .product-card:nth-child(2) { animation-delay: 0.2s; }
-        .product-card:nth-child(3) { animation-delay: 0.3s; }
-        .product-card:nth-child(4) { animation-delay: 0.4s; }
-        .product-card:nth-child(5) { animation-delay: 0.5s; }
-        .product-card:nth-child(6) { animation-delay: 0.6s; }
-        .product-card:nth-child(7) { animation-delay: 0.7s; }
-        .product-card:nth-child(8) { animation-delay: 0.8s; }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(0, 212, 255, 0.3);
-            background: rgba(26, 26, 26, 0.8);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 280px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 212, 255, 0.02) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .product-card:hover .product-image img {
-            transform: scale(1.08);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--accent);
-            color: var(--bg-dark);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
-            z-index: 10;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-category {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .product-name {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            line-height: 1.3;
-        }
-
-        .product-description {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-            line-height: 1.5;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--accent);
-            letter-spacing: -0.5px;
-        }
-
-        .btn-small {
-            padding: 0.6rem 1.2rem;
-            font-size: 0.85rem;
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .btn-small:hover {
-            background: var(--accent);
-            color: var(--bg-dark);
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
-        }
-
-        /* FOOTER */
-        footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-            padding: 3rem 2rem 1rem;
-            margin-top: 5rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            color: var(--text-primary);
-            letter-spacing: 0.5px;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-section a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .footer-section a:hover {
-            color: var(--accent);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-            padding-top: 2rem;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .fade-up { animation: fadeUpAnim 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+    @keyframes fadeUpAnim { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+  </style>
 </head>
-<body>
-    <!-- HEADER -->
-    <header>
-        <nav>
-            <a href="index.html" class="logo">
-                <div class="logo-icon">E</div>
-                <span>ElectroHub</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="#" class="nav-link">Products</a></li>
-                <li><a href="index.html#features" class="nav-link">Features</a></li>
-                <li><a href="#" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="nav-icons">
-                <button class="nav-icon-btn" title="Search">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                    </svg>
-                </button>
-                <button class="nav-icon-btn" title="Cart">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                    </svg>
-                </button>
-                <button class="menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
-    </header>
+<body class="selection:bg-white selection:text-black">
 
-    <!-- PAGE HEADER -->
-    <section class="page-header">
-        <h1>Complete Collection</h1>
-        <p>Browse our curated selection of premium electronics engineered for excellence</p>
-    </section>
+  <header class="border-b border-white/10 bg-black/70 backdrop-blur-2xl sticky top-0 z-50">
+    <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-white text-black flex items-center justify-center rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+          <span class="font-black text-lg">E</span>
+        </div>
+        <span class="text-xl font-extrabold tracking-tight text-white">ElectroHub.</span>
+      </a>
+      
+      <nav class="hidden md:flex gap-10 items-center font-bold text-sm text-slate-400">
+        <a href="shop.html" class="text-white relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-[2px] after:bg-white">Shop All</a>
+        <a href="mac.html" class="hover:text-white transition-colors">Mac</a>
+        <a href="mobiles.html" class="hover:text-white transition-colors">Mobiles</a>
+        <a href="climate.html" class="hover:text-white transition-colors">Home</a>
+      </nav>
 
-    <!-- FILTERS -->
-    <div class="filters">
-        <button class="filter-btn active">All Products</button>
-        <button class="filter-btn">Phones</button>
-        <button class="filter-btn">Laptops</button>
-        <button class="filter-btn">Audio</button>
-        <button class="filter-btn">Wearables</button>
-        <button class="filter-btn">Accessories</button>
+      <div class="flex gap-4 items-center">
+        <button class="text-white hover:text-gray-300 transition-colors"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+        <button class="bg-white text-black px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-200 transition-colors">Cart (0)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full pt-24 pb-16 px-6 max-w-[1400px] mx-auto text-center">
+    <h1 class="text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.9] text-gradient fade-up">
+      THE ARCHIVE.
+    </h1>
+    <p class="mt-6 text-xl text-slate-400 max-w-2xl mx-auto font-medium fade-up" style="animation-delay: 0.1s;">
+      Every device. Every specification. The complete ElectroHub ecosystem engineered for absolute performance.
+    </p>
+  </main>
+
+  <div class="w-full pb-32 px-6 max-w-[1400px] mx-auto">
+
+    <div class="sticky-header mb-8 mt-12">
+      <h2 class="text-3xl font-black text-white tracking-tight flex items-center gap-4">
+        <span class="w-8 h-1 bg-white rounded-full"></span> Mobile Devices
+      </h2>
     </div>
 
-    <!-- MOBILE DEVICES -->
-    <section class="shop-section">
-        <h2 class="shop-title">Mobile Devices</h2>
-        <div class="product-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&q=80&w=500" alt="iPhone 15 Pro">
-                    <span class="product-badge">Featured</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Apple</p>
-                    <h3 class="product-name">iPhone 15 Pro Max</h3>
-                    <p class="product-description">Titanium design with A17 Pro chip. Advanced camera system with Night Mode and ProRAW support.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹1,48,900</span>
-                        <button class="btn-small">View Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&q=80&w=500" alt="Galaxy S24">
-                    <span class="product-badge">Galaxy AI</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Samsung</p>
-                    <h3 class="product-name">Galaxy S24 Ultra</h3>
-                    <p class="product-description">200MP Nightography camera. Built-in S Pen with AI-powered features. Snapdragon 8 Gen 3.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹1,29,999</span>
-                        <button class="btn-small">View Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1511707267537-b85faf00021e?auto=format&fit=crop&q=80&w=500" alt="Pixel 8">
-                    <span class="product-badge">AI First</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Google</p>
-                    <h3 class="product-name">Pixel 8 Pro</h3>
-                    <p class="product-description">Tensor G3 chip with computational photography. Magic Eraser and Real Tone technology.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹1,06,999</span>
-                        <button class="btn-small">View Details</button>
-                    </div>
-                </div>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <article class="shop-card scroll-reveal-3d">
+        <span class="absolute top-6 right-6 z-10 text-xs font-black uppercase tracking-widest text-slate-500">Apple</span>
+        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&q=80&w=600" class="product-img" alt="iPhone 15 Pro">
+        
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-2xl font-bold text-white mb-1">iPhone 15 Pro Max</h3>
+          <p class="text-xl font-black text-white">₹1,48,900</p>
         </div>
-    </section>
 
-    <!-- LAPTOPS -->
-    <section class="shop-section">
-        <h2 class="shop-title">Workstations & Laptops</h2>
-        <div class="product-grid">
-            <!-- Product 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=500" alt="MacBook Pro">
-                    <span class="product-badge">Best Seller</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Apple</p>
-                    <h3 class="product-name">MacBook Pro 16"</h3>
-                    <p class="product-description">M4 Max chip with 40-core GPU. Liquid Retina XDR display. Up to 36GB unified memory.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹2,49,900</span>
-                        <button class="btn-small">View Details</button>
-                    </div>
-                </div>
-            </div>
+        <div class="specs-drawer">
+          <h4 class="text-lg font-bold text-white mb-4">Detailed Specifications</h4>
+          <p class="text-sm text-slate-400 mb-6 line-clamp-3">Forged in aerospace-grade titanium. Features the revolutionary A17 Pro chip, delivering hardware-accelerated ray tracing and unparalleled gaming performance. The definitive 48MP camera system captures spatial video.</p>
+          
+          <ul class="text-sm font-medium text-slate-300 space-y-3 mb-auto">
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Processor</span> <span class="text-white">A17 Pro (3nm)</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Display</span> <span class="text-white">6.7" Super Retina XDR</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Chassis</span> <span class="text-white">Grade 5 Titanium</span></li>
+          </ul>
 
-            <!-- Product 5 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=500" alt="Dell XPS">
-                    <span class="product-badge">Premium</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Dell</p>
-                    <h3 class="product-name">XPS 15 OLED</h3>
-                    <p class="product-description">Intel Core i9 with RTX 4090. 4K OLED display. Premium build quality with aluminum chassis.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹1,99,999</span>
-                        <button class="btn-small">View Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 6 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1588872657840-90a07d3e4f43?auto=format&fit=crop&q=80&w=500" alt="ASUS ROG">
-                    <span class="product-badge">Gaming</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">ASUS</p>
-                    <h3 class="product-name">ROG Zephyrus G16</h3>
-                    <p class="product-description">RTX 4090 laptop GPU. 240Hz display. Advanced cooling system for sustained performance.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹2,79,999</span>
-                        <button class="btn-small">View Details</button>
-                    </div>
-                </div>
-            </div>
+          <button class="w-full bg-white text-black py-3 rounded-full font-bold hover:bg-gray-200 transition-colors mt-6">Add to Cart</button>
         </div>
-    </section>
+      </article>
 
-    <!-- AUDIO & ACCESSORIES -->
-    <section class="shop-section">
-        <h2 class="shop-title">Audio & Accessories</h2>
-        <div class="product-grid">
-            <!-- Product 7 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&q=80&w=500" alt="SonicPods">
-                    <span class="product-badge">Best Audio</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Audio</p>
-                    <h3 class="product-name">SonicPods Pro</h3>
-                    <p class="product-description">Active noise cancellation. Spatial audio with dynamic head tracking. 36-hour battery life.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹24,999</span>
-                        <button class="btn-small">View Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 8 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&q=80&w=500" alt="GaN Hub">
-                    <span class="product-badge">Essential</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Accessories</p>
-                    <h3 class="product-name">GaN Power Hub</h3>
-                    <p class="product-description">140W fast charging. Charge 4 devices simultaneously. Compact design with thermal management.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹9,999</span>
-                        <button class="btn-small">View Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 9 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&q=80&w=500" alt="ElectroWatch">
-                    <span class="product-badge">Smart</span>
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Wearables</p>
-                    <h3 class="product-name">ElectroWatch Ultra</h3>
-                    <p class="product-description">Titanium construction. Always-on AMOLED display. Dual-frequency GPS. Health monitoring suite.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹34,999</span>
-                        <button class="btn-small">View Details</button>
-                    </div>
-                </div>
-            </div>
+      <article class="shop-card scroll-reveal-3d">
+        <span class="absolute top-6 right-6 z-10 text-xs font-black uppercase tracking-widest text-slate-500">Samsung</span>
+        <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&q=80&w=600" class="product-img" alt="S24 Ultra">
+        
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-2xl font-bold text-white mb-1">Galaxy S24 Ultra</h3>
+          <p class="text-xl font-black text-white">₹1,29,999</p>
         </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Shop</h3>
-                <ul>
-                    <li><a href="#">All Products</a></li>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Best Sellers</a></li>
-                    <li><a href="#">Deals</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Support</h3>
-                <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Shipping & Delivery</a></li>
-                    <li><a href="#">Returns & Exchanges</a></li>
-                    <li><a href="#">Track Order</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="#">About ElectroHub</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Blog & News</a></li>
-                    <li><a href="#">Press Kit</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
+        <div class="specs-drawer">
+          <h4 class="text-lg font-bold text-white mb-4">Detailed Specifications</h4>
+          <p class="text-sm text-slate-400 mb-6 line-clamp-3">The ultimate AI phone. Write, edit, and translate effortlessly with Galaxy AI. Features a built-in S Pen, a massive 200MP main camera sensor, and a flat titanium display engineered to reduce glare.</p>
+          
+          <ul class="text-sm font-medium text-slate-300 space-y-3 mb-auto">
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Processor</span> <span class="text-white">Snapdragon 8 Gen 3</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Camera</span> <span class="text-white">200MP + 50MP Periscope</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Feature</span> <span class="text-white">Integrated S Pen</span></li>
+          </ul>
+
+          <button class="w-full bg-white text-black py-3 rounded-full font-bold hover:bg-gray-200 transition-colors mt-6">Add to Cart</button>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 ElectroHub. Engineered for Excellence. All rights reserved.</p>
+      </article>
+
+      <article class="shop-card scroll-reveal-3d">
+        <span class="absolute top-6 right-6 z-10 text-xs font-black uppercase tracking-widest text-slate-500">Google</span>
+        <img src="https://static0.pocketnowimages.com/wordpress/wp-content/uploads/wm/2023/10/pixel-8-pro-official-in-house-2-1.jpeg?w=1600&h=900&fit=crop" class="product-img mix-blend-lighten" alt="Pixel 8 Pro">
+        
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-2xl font-bold text-white mb-1">Pixel 8 Pro</h3>
+          <p class="text-xl font-black text-white">₹1,06,999</p>
         </div>
-    </footer>
+
+        <div class="specs-drawer">
+          <h4 class="text-lg font-bold text-white mb-4">Detailed Specifications</h4>
+          <p class="text-sm text-slate-400 mb-6 line-clamp-3">The smartest smartphone. Tensor G3 enables computational photography magic like Magic Eraser and Video Boost. Guaranteed 7 years of OS, security, and Feature Drop updates.</p>
+          
+          <ul class="text-sm font-medium text-slate-300 space-y-3 mb-auto">
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Processor</span> <span class="text-white">Tensor G3</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Software</span> <span class="text-white">7 Years Updates</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Display</span> <span class="text-white">Super Actua (2400 nits)</span></li>
+          </ul>
+
+          <button class="w-full bg-white text-black py-3 rounded-full font-bold hover:bg-gray-200 transition-colors mt-6">Add to Cart</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="sticky-header mb-8 mt-20">
+      <h2 class="text-3xl font-black text-white tracking-tight flex items-center gap-4">
+        <span class="w-8 h-1 bg-white rounded-full"></span> Workstations
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <article class="shop-card scroll-reveal-3d">
+        <span class="absolute top-6 right-6 z-10 text-xs font-black uppercase tracking-widest text-slate-500">Apple</span>
+        <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&q=80&w=600" class="product-img mix-blend-lighten" alt="MacBook Pro">
+        
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-2xl font-bold text-white mb-1">MacBook Pro 16"</h3>
+          <p class="text-xl font-black text-white">From ₹2,49,900</p>
+        </div>
+
+        <div class="specs-drawer">
+          <h4 class="text-lg font-bold text-white mb-4">Detailed Specifications</h4>
+          <p class="text-sm text-slate-400 mb-6 line-clamp-3">Mind-bending power. Configurable with the M3 Max chip for extreme workflows. Features a brilliant Liquid Retina XDR display, up to 128GB of unified memory, and 22 hours of battery life.</p>
+          
+          <ul class="text-sm font-medium text-slate-300 space-y-3 mb-auto">
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Chipset</span> <span class="text-white">M3 Max (40-core GPU)</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Memory</span> <span class="text-white">Up to 128GB Unified</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Display</span> <span class="text-white">Liquid Retina XDR (120Hz)</span></li>
+          </ul>
+
+          <button class="w-full bg-white text-black py-3 rounded-full font-bold hover:bg-gray-200 transition-colors mt-6">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="shop-card scroll-reveal-3d">
+        <span class="absolute top-6 right-6 z-10 text-xs font-black uppercase tracking-widest text-slate-500">Apple</span>
+        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=600" class="product-img mix-blend-lighten" alt="MacBook Air">
+        
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-2xl font-bold text-white mb-1">MacBook Air 15"</h3>
+          <p class="text-xl font-black text-white">From ₹1,34,900</p>
+        </div>
+
+        <div class="specs-drawer">
+          <h4 class="text-lg font-bold text-white mb-4">Detailed Specifications</h4>
+          <p class="text-sm text-slate-400 mb-6 line-clamp-3">Impossibly thin and light. The 15-inch MacBook Air makes room for more of what you love with a spacious Liquid Retina display. Supercharged by the M3 chip in a completely fanless design.</p>
+          
+          <ul class="text-sm font-medium text-slate-300 space-y-3 mb-auto">
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Chipset</span> <span class="text-white">M3 (8-core CPU)</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Design</span> <span class="text-white">11.5mm thin, Fanless</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Battery</span> <span class="text-white">18 Hours Playback</span></li>
+          </ul>
+
+          <button class="w-full bg-white text-black py-3 rounded-full font-bold hover:bg-gray-200 transition-colors mt-6">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="shop-card scroll-reveal-3d">
+        <span class="absolute top-6 right-6 z-10 text-xs font-black uppercase tracking-widest text-slate-500">Apple</span>
+        <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=600" class="product-img" alt="Mac Studio">
+        
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-2xl font-bold text-white mb-1">Mac Studio</h3>
+          <p class="text-xl font-black text-white">From ₹1,99,900</p>
+        </div>
+
+        <div class="specs-drawer">
+          <h4 class="text-lg font-bold text-white mb-4">Detailed Specifications</h4>
+          <p class="text-sm text-slate-400 mb-6 line-clamp-3">Empower station. Mac Studio delivers exceptional performance with the M2 Ultra chip, extensive connectivity with Thunderbolt 4, and incredible capabilities into an unbelievably compact form.</p>
+          
+          <ul class="text-sm font-medium text-slate-300 space-y-3 mb-auto">
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Chipset</span> <span class="text-white">M2 Ultra (76-core GPU)</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Media</span> <span class="text-white">22 streams of 8K ProRes</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Ports</span> <span class="text-white">6x Thunderbolt 4, 10Gb Ethernet</span></li>
+          </ul>
+
+          <button class="w-full bg-white text-black py-3 rounded-full font-bold hover:bg-gray-200 transition-colors mt-6">Add to Cart</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="sticky-header mb-8 mt-20">
+      <h2 class="text-3xl font-black text-white tracking-tight flex items-center gap-4">
+        <span class="w-8 h-1 bg-white rounded-full"></span> Smart Home
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <article class="shop-card scroll-reveal-3d lg:col-span-2">
+        <span class="absolute top-6 right-6 z-10 text-xs font-black uppercase tracking-widest text-slate-500">Appliance</span>
+        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800" class="product-img object-cover opacity-80" alt="Smart Fridge">
+        
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-2xl font-bold text-white mb-1">FrostSense Family Hub</h3>
+          <p class="text-xl font-black text-white">₹1,89,900</p>
+        </div>
+
+        <div class="specs-drawer">
+          <h4 class="text-lg font-bold text-white mb-4">Detailed Specifications</h4>
+          <p class="text-sm text-slate-400 mb-6 line-clamp-3">A revolution in your kitchen. Internal AI cameras identify ingredients and track expiration dates. The transparent OLED door lets you stream music, sync family calendars, and see inside without losing cold air.</p>
+          
+          <ul class="text-sm font-medium text-slate-300 space-y-3 mb-auto">
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>AI Vision</span> <span class="text-white">Auto-recipe generation</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Cooling</span> <span class="text-white">Twin Cooling Plus</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Display</span> <span class="text-white">21" Touch OLED panel</span></li>
+          </ul>
+
+          <button class="w-full bg-white text-black py-3 rounded-full font-bold hover:bg-gray-200 transition-colors mt-6">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="shop-card scroll-reveal-3d">
+        <span class="absolute top-6 right-6 z-10 text-xs font-black uppercase tracking-widest text-slate-500">Climate</span>
+        <img src="https://m.media-amazon.com/images/I/61gx7xjnzlL.jpg" class="product-img mix-blend-screen" alt="Smart AC">
+        
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-2xl font-bold text-white mb-1">AeroPure AC</h3>
+          <p class="text-xl font-black text-white">₹45,999</p>
+        </div>
+
+        <div class="specs-drawer">
+          <h4 class="text-lg font-bold text-white mb-4">Specs</h4>
+          <p class="text-sm text-slate-400 mb-6">Wind-Free cooling technology disperses air gently through 23,000 micro-holes. AI energy mode saves up to 20% power.</p>
+          <ul class="text-sm font-medium text-slate-300 space-y-3 mb-auto">
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Capacity</span> <span class="text-white">1.5 Ton, 5 Star</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Feature</span> <span class="text-white">Wind-Free Cooling</span></li>
+          </ul>
+          <button class="w-full bg-white text-black py-3 rounded-full font-bold mt-6">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="shop-card scroll-reveal-3d">
+        <span class="absolute top-6 right-6 z-10 text-xs font-black uppercase tracking-widest text-slate-500">Security</span>
+        <img src="https://www.cnet.com/a/img/resize/c2c36c2148683ba9fe885a4eb6b088167d21b1ac/hub/2023/12/13/0b8ca6e9-6a70-4b4e-8e53-3159c7b614bd/70mai-omni-dash-cam.jpg?auto=webp&fit=crop&height=675&width=1200" class="product-img mix-blend-lighten" alt="Smart Camera">
+        
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-2xl font-bold text-white mb-1">OmniCam 4K</h3>
+          <p class="text-xl font-black text-white">₹12,999</p>
+        </div>
+
+        <div class="specs-drawer">
+          <h4 class="text-lg font-bold text-white mb-4">Specs</h4>
+          <p class="text-sm text-slate-400 mb-6">Complete 360-degree coverage with advanced night vision and AI human tracking. Connects directly to ElectroHub.</p>
+          <ul class="text-sm font-medium text-slate-300 space-y-3 mb-auto">
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Resolution</span> <span class="text-white">4K Ultra HD</span></li>
+            <li class="flex justify-between border-b border-white/10 pb-1"><span>Vision</span> <span class="text-white">Color Night Vision</span></li>
+          </ul>
+          <button class="w-full bg-white text-black py-3 rounded-full font-bold mt-6">Add to Cart</button>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="sticky-header mb-8 mt-20">
+      <h2 class="text-3xl font-black text-white tracking-tight flex items-center gap-4">
+        <span class="w-8 h-1 bg-white rounded-full"></span> Accessories
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <article class="shop-card scroll-reveal-3d">
+        <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&q=80&w=400" class="product-img mix-blend-lighten" alt="Earbuds">
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-xl font-bold text-white mb-1">SonicPods Pro</h3>
+          <p class="text-lg font-black text-white">₹24,900</p>
+        </div>
+        <div class="specs-drawer">
+          <h4 class="text-md font-bold text-white mb-2">Specs</h4>
+          <p class="text-xs text-slate-400 mb-4">Adaptive Noise Cancellation and Transparency mode.</p>
+          <button class="w-full bg-white text-black py-2 rounded-full font-bold mt-auto">Buy</button>
+        </div>
+      </article>
+
+      <article class="shop-card scroll-reveal-3d">
+        <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&q=80&w=400" class="product-img mix-blend-lighten" alt="Charger">
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-xl font-bold text-white mb-1">GaN 140W Hub</h3>
+          <p class="text-lg font-black text-white">₹9,900</p>
+        </div>
+        <div class="specs-drawer">
+          <h4 class="text-md font-bold text-white mb-2">Specs</h4>
+          <p class="text-xs text-slate-400 mb-4">Charge 4 devices simultaneously with smart power allocation.</p>
+          <button class="w-full bg-white text-black py-2 rounded-full font-bold mt-auto">Buy</button>
+        </div>
+      </article>
+
+      <article class="shop-card scroll-reveal-3d">
+        <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&q=80&w=400" class="product-img mix-blend-lighten" alt="Watch">
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-xl font-bold text-white mb-1">ElectroWatch Ultra</h3>
+          <p class="text-lg font-black text-white">₹79,900</p>
+        </div>
+        <div class="specs-drawer">
+          <h4 class="text-md font-bold text-white mb-2">Specs</h4>
+          <p class="text-xs text-slate-400 mb-4">Aerospace titanium case. Precision dual-frequency GPS.</p>
+          <button class="w-full bg-white text-black py-2 rounded-full font-bold mt-auto">Buy</button>
+        </div>
+      </article>
+
+      <article class="shop-card scroll-reveal-3d">
+        <img src="https://www.nomorepainergonomics.com.au/cdn/shop/files/XMPrecisionMousXMPrecisionMousee.png?v=1767926961&width=1024" class="product-img mix-blend-lighten" alt="Mouse">
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <h3 class="text-xl font-bold text-white mb-1">Precision Mouse</h3>
+          <p class="text-lg font-black text-white">₹8,900</p>
+        </div>
+        <div class="specs-drawer">
+          <h4 class="text-md font-bold text-white mb-2">Specs</h4>
+          <p class="text-xs text-slate-400 mb-4">Ergonomic design with multi-surface tracking sensor.</p>
+          <button class="w-full bg-white text-black py-2 rounded-full font-bold mt-auto">Buy</button>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+  <footer class="w-full border-t border-white/10 bg-[#0a0a0a] pt-16 pb-8">
+    <div class="max-w-[1400px] mx-auto px-6 text-center text-slate-500 text-sm">
+      <p class="mb-4">Prices include all applicable taxes. Delivery is free for all orders above ₹5,000.</p>
+      <p>&copy; 2026 ElectroHub Technologies. All rights reserved.</p>
+    </div>
+  </footer>
+
 </body>
 </html>
